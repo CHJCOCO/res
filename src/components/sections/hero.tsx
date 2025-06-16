@@ -60,6 +60,8 @@ export function Hero() {
                       autoPlay 
                       muted 
                       loop 
+                      playsInline
+                      webkit-playsinline="true"
                       className="w-full h-full object-cover"
                     >
                       <source src="/videos/st2.mp4" type="video/mp4" />
@@ -129,7 +131,13 @@ export function Hero() {
             
             {/* 영상 영역 */}
             <div className="w-full h-full bg-gray-900 flex items-center justify-center">
-                                  <video controls autoPlay className="w-full h-full">
+                                  <video 
+                    controls 
+                    autoPlay 
+                    playsInline
+                    webkit-playsinline="true"
+                    className="w-full h-full"
+                  >
                     <source src="/videos/st2.mp4" type="video/mp4" />
                   </video>
               

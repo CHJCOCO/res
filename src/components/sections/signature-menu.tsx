@@ -123,7 +123,7 @@ export function SignatureMenu() {
         {/* 배경 오버레이 */}
         <div className={`absolute inset-0 ${backgroundOpacity}`}></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative h-full">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 relative h-full">
           {/* 전체 상단 제목 */}
           <div className="text-center mb-36 lg:mb-48">
             <h2 className="signature-title text-7xl md:text-8xl lg:text-9xl italic" style={{ 
@@ -165,7 +165,7 @@ export function SignatureMenu() {
               <div className="relative w-full">
                 <div 
                   ref={sliderRef}
-                  className="flex space-x-12 lg:space-x-16 overflow-x-auto scrollbar-hide pb-8"
+                  className="flex space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-16 overflow-x-auto scrollbar-hide pb-8 px-2 sm:px-0"
                   style={{ scrollSnapType: 'x mandatory' }}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
@@ -173,7 +173,7 @@ export function SignatureMenu() {
                   {extendedMenuItems.map((menu, index) => (
                     <div 
                       key={index}
-                      className="flex-none w-[380px] lg:w-[450px] bg-black/20 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-300 group"
+                      className="flex-none w-[280px] sm:w-[320px] md:w-[360px] lg:w-[450px] bg-black/20 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-300 group"
                       style={{ scrollSnapAlign: 'start' }}
                     >
                       <div className="relative aspect-[9/16] overflow-hidden">
@@ -185,9 +185,9 @@ export function SignatureMenu() {
                         />
                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
                       </div>
-                      <div className="p-12">
-                        <h3 className="text-xl lg:text-2xl xl:text-3xl font-bold mb-4 leading-tight" style={{ color: '#d4a437' }}>{menu.name}</h3>
-                        <p className="text-gray-300 text-base lg:text-lg xl:text-xl leading-relaxed">
+                      <div className="p-6 sm:p-8 md:p-10 lg:p-12">
+                        <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold mb-3 sm:mb-4 leading-tight" style={{ color: '#d4a437' }}>{menu.name}</h3>
+                        <p className="text-gray-300 text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed">
                           {menuItems[index % 5].cardDescription}
                         </p>
                       </div>
@@ -196,18 +196,18 @@ export function SignatureMenu() {
                 </div>
 
                 {/* 슬라이드 컨트롤 버튼 */}
-                <div className="flex justify-center items-center gap-6 mt-12">
+                <div className="flex justify-center items-center gap-4 sm:gap-6 mt-8 sm:mt-12">
                   <button
                     onClick={scrollLeft}
                     disabled={!canScrollLeft}
-                    className={`group relative w-16 h-16 rounded-full border-2 transition-all duration-300 backdrop-blur-sm ${
+                    className={`group relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 transition-all duration-300 backdrop-blur-sm ${
                       canScrollLeft 
                         ? 'border-white/30 bg-black/20 hover:border-white/60 hover:bg-black/40 text-white hover:scale-105' 
                         : 'border-white/10 bg-black/10 text-white/30 cursor-not-allowed'
                     }`}
                   >
                     <svg 
-                      className="w-6 h-6 mx-auto transition-transform group-hover:-translate-x-0.5" 
+                      className="w-5 h-5 sm:w-6 sm:h-6 mx-auto transition-transform group-hover:-translate-x-0.5" 
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
@@ -220,14 +220,14 @@ export function SignatureMenu() {
                   <button
                     onClick={scrollRight}
                     disabled={!canScrollRight}
-                    className={`group relative w-16 h-16 rounded-full border-2 transition-all duration-300 backdrop-blur-sm ${
+                    className={`group relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 transition-all duration-300 backdrop-blur-sm ${
                       canScrollRight 
                         ? 'border-white/30 bg-black/20 hover:border-white/60 hover:bg-black/40 text-white hover:scale-105' 
                         : 'border-white/10 bg-black/10 text-white/30 cursor-not-allowed'
                     }`}
                   >
                     <svg 
-                      className="w-6 h-6 mx-auto transition-transform group-hover:translate-x-0.5" 
+                      className="w-5 h-5 sm:w-6 sm:h-6 mx-auto transition-transform group-hover:translate-x-0.5" 
                       fill="none" 
                       stroke="currentColor" 
                       viewBox="0 0 24 24"
