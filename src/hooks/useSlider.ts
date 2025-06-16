@@ -22,7 +22,7 @@ export function useSlider() {
     return () => window.removeEventListener('resize', checkScreenSize)
   }, [])
 
-  const checkScrollability = () => {
+  const checkScrollability = useCallback(() => {
     if (!sliderRef.current) return
     
     const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current
@@ -46,7 +46,7 @@ export function useSlider() {
     if (actualIndex < 0) actualIndex += 5
     
     setActiveIndex(actualIndex)
-  }
+  }, [isMobile])
 
   const scrollLeft = () => {
     if (!sliderRef.current) return
@@ -100,7 +100,7 @@ export function useSlider() {
     
     // 즉시 인덱스 업데이트 (스크롤 시작과 함께)
     setTimeout(checkScrollability, 200) // 조금 더 여유롭게
-  }, [isHovered, isMobile])
+  }, [isHovered, isMobile, checkScrollability])
 
   // 초기 설정
   useEffect(() => {
@@ -127,7 +127,7 @@ export function useSlider() {
 
     slider.addEventListener('scroll', handleScroll)
     return () => slider.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [checkScrollability])
 
   // 자동 슬라이드 효과 (모바일에서는 비활성화)
   useEffect(() => {

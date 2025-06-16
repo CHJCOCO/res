@@ -165,19 +165,19 @@ export function SignatureMenu() {
           <div className="flex flex-col lg:flex-row items-start justify-between gap-16 lg:gap-20">
             
             {/* 왼쪽 텍스트 영역 (55%) */}
-            <div className="w-full lg:w-[55%] text-white flex flex-col justify-between h-auto lg:h-[800px]">
+            <div className="w-full lg:w-[55%] text-white flex flex-col justify-center lg:justify-start h-auto lg:h-[800px]">
               {/* 상단 텍스트 그룹 */}
-              <div className="flex-1 flex flex-col justify-center">
+              <div className="flex-1 lg:flex-none flex flex-col justify-center lg:justify-start text-center lg:text-left">
                 <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8 lg:mb-12 max-w-4xl transition-all duration-500 leading-tight" style={{ color: '#d4a437' }}>
                   {currentMenu.name}
                 </div>
-                <p className="text-gray-300 text-lg lg:text-xl leading-relaxed max-w-3xl transition-all duration-500">
+                <p className="text-gray-300 text-base sm:text-lg lg:text-xl leading-loose sm:leading-relaxed max-w-full sm:max-w-3xl transition-all duration-500 break-keep hyphens-auto">
                   {currentMenu.fullDescription}
                 </p>
               </div>
               
               {/* 하단 버튼 */}
-              <div className="mt-12 lg:mt-16">
+              <div className="mt-12 lg:mt-8 text-center lg:text-left">
                 <Link href="/menu">
                   <button className="border-2 border-white bg-transparent text-white px-12 py-6 lg:px-16 lg:py-8 rounded-xl text-xl lg:text-2xl hover:bg-white hover:text-gray-900 transition-all duration-300 font-semibold">
                     메뉴안내
@@ -204,7 +204,7 @@ export function SignatureMenu() {
                       className="flex-none w-[280px] sm:w-[320px] md:w-[360px] lg:w-[450px] bg-black/20 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-300 group"
                       style={{ scrollSnapAlign: 'center' }}
                     >
-                      <div className="relative aspect-[9/16] overflow-hidden">
+                      <div className="relative aspect-[3/5] overflow-hidden">
                         <Image 
                           src={menu.image}
                           alt={menu.name}
@@ -215,7 +215,7 @@ export function SignatureMenu() {
                       </div>
                       <div className="p-6 sm:p-8 md:p-10 lg:p-12">
                         <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold mb-3 sm:mb-4 leading-tight" style={{ color: '#d4a437' }}>{menu.name}</h3>
-                        <p className="text-gray-300 text-sm sm:text-base lg:text-lg xl:text-xl leading-relaxed">
+                        <p className="text-gray-300 text-xs sm:text-sm lg:text-base xl:text-lg leading-loose sm:leading-relaxed break-keep hyphens-auto">
                           {menuItems[index % 5].cardDescription}
                         </p>
                       </div>
