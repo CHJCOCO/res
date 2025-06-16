@@ -109,6 +109,32 @@ export function SignatureMenu() {
           -webkit-text-fill-color: transparent;
           background-clip: text;
         }
+
+        .card-slider {
+          padding-left: calc(50vw - 140px);
+          padding-right: calc(50vw - 140px);
+        }
+
+        @media (min-width: 640px) {
+          .card-slider {
+            padding-left: calc(50vw - 160px);
+            padding-right: calc(50vw - 160px);
+          }
+        }
+
+        @media (min-width: 768px) {
+          .card-slider {
+            padding-left: calc(50vw - 180px);
+            padding-right: calc(50vw - 180px);
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .card-slider {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
       `}</style>
       
       <section 
@@ -165,8 +191,10 @@ export function SignatureMenu() {
               <div className="relative w-full">
                 <div 
                   ref={sliderRef}
-                  className="flex space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-16 overflow-x-auto scrollbar-hide pb-8 px-2 sm:px-0"
-                  style={{ scrollSnapType: 'x mandatory' }}
+                  className="card-slider flex space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-16 overflow-x-auto scrollbar-hide pb-8"
+                  style={{ 
+                    scrollSnapType: 'x mandatory'
+                  }}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -174,7 +202,7 @@ export function SignatureMenu() {
                     <div 
                       key={index}
                       className="flex-none w-[280px] sm:w-[320px] md:w-[360px] lg:w-[450px] bg-black/20 rounded-2xl overflow-hidden backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-300 group"
-                      style={{ scrollSnapAlign: 'start' }}
+                      style={{ scrollSnapAlign: 'center' }}
                     >
                       <div className="relative aspect-[9/16] overflow-hidden">
                         <Image 
