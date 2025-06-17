@@ -59,4 +59,31 @@ export interface OpeningHours {
   open_time: string
   close_time: string
   is_closed: boolean
+}
+
+// Instagram Feed Types
+export interface InstagramPost {
+  id: string;
+  media_url: string;
+  media_type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
+  caption?: string;
+  permalink: string;
+  timestamp: string;
+  username?: string;
+  imageUrl?: string;
+  likes?: number;
+  comments?: number;
+  hashtags?: string[];
+  url?: string;
+}
+
+export interface InstagramFeedResponse {
+  data: InstagramPost[];
+  paging?: {
+    cursors: {
+      before: string;
+      after: string;
+    };
+    next?: string;
+  };
 } 

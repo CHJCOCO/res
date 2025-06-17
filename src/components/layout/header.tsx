@@ -14,7 +14,7 @@ export function Header() {
   ]
 
   const rightNavigation = [
-    { name: 'SNS REVIEW', href: '/about' },
+    { name: 'SNS REVIEW', href: '/stake-review' },
     { name: 'CONTACT', href: '/contact' },
   ]
 

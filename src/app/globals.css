@@ -42,8 +42,8 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-pretendard-regular);
+  --font-mono: var(--font-pretendard-regular);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -62,8 +62,74 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-pretendard-regular), Arial, Helvetica, sans-serif;
   line-height: 1.6;
+}
+
+/* ============================================================================ */
+/* 🎨 커스텀 폰트 유틸리티 클래스들 */
+/* ============================================================================ */
+
+/* Pretendard 폰트 패밀리 */
+.font-pretendard {
+  font-family: var(--font-pretendard-regular), Arial, sans-serif;
+}
+
+.font-pretendard-bold {
+  font-family: var(--font-pretendard-bold), Arial, sans-serif;
+}
+
+.font-pretendard-semibold {
+  font-family: var(--font-pretendard-semibold), Arial, sans-serif;
+}
+
+/* 마루부리 폰트 패밀리 (감성적인 제목용) */
+.font-maruburi {
+  font-family: var(--font-maruburi-regular), Arial, sans-serif;
+}
+
+.font-maruburi-bold {
+  font-family: var(--font-maruburi-bold), Arial, sans-serif;
+}
+
+.font-maruburi-semibold {
+  font-family: var(--font-maruburi-semibold), Arial, sans-serif;
+}
+
+/* 잘난고딕 (임팩트 있는 제목용) */
+.font-jalnan {
+  font-family: var(--font-jalnan-gothic), Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* 나눔스퀘어라운드 (둥근 귀여운 폰트) */
+.font-nanum-round {
+  font-family: var(--font-nanum-square-round), Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* 이서윤체 (손글씨 느낌) */
+.font-seoyun {
+  font-family: var(--font-lee-seoyun), Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* KOTRA Bold (공식적인 제목용) */
+.font-kotra {
+  font-family: var(--font-kotra-bold), Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* 나눔바른고딕 (깔끔한 본문용) */
+.font-nanum-barun {
+  font-family: var(--font-nanum-barun-gothic), Arial, sans-serif;
+  font-weight: bold;
+}
+
+/* Dancing Script Regular (영어필기체) */
+.font-dancingscript {
+  font-family: var(--font-dancingscript-regular), Arial, sans-serif;
+  font-weight: normal;
 }
 
 /* 부드러운 스크롤 효과 */
@@ -123,4 +189,19 @@ html {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ============================================================================ */
+/* 📝 텍스트 줄바꿈 유틸리티 클래스들 */
+/* ============================================================================ */
+
+/* \n을 줄바꿈으로 처리 (더 안전한 방법) */
+.whitespace-pre-line {
+  white-space: pre-line;
+}
+
+/* 줄바꿈 허용 */
+.break-words-custom {
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
