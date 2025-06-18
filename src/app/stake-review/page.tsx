@@ -152,8 +152,16 @@ const PAGE_CONTENT = {
         <span className="block">우리의 이야기로</span>
       </>
     ),
-    subtitle: '고객들이 남긴 생생한 후기가 이 공간에 모였습니다.',
-    description: '당신의 테이블 위에서 피어난 순간들을 함께 감상해보세요.',
+    subtitle: (
+      <>
+        고객들이 남긴 생생한 후기가<br className="sm:hidden" /> 이 공간에 모였습니다.
+      </>
+    ),
+    description: (
+      <>
+        당신의 테이블 위에서 피어난<br className="sm:hidden" /> 순간들을 함께 감상해보세요.
+      </>
+    ),
     stats: {
       rating: '4.9/5.0',
       updateText: '실시간 업데이트'
