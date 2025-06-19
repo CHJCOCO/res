@@ -1,7 +1,17 @@
 'use client'
 
 import { Heart } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+// ============================================================================
+// 🎬 애니메이션 제거 - 단순 표시
+// ============================================================================
+const customStyles = `
+  .card-wrapper {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`
 
 // ============================================================================
 // 🎨 디자인 설정 (여기서 쉽게 커스터마이징 가능)
@@ -70,12 +80,12 @@ const DESIGN_CONFIG = {
   card: {
     sizes: {
       collapsed: 'h-32 sm:h-40 md:h-44 lg:h-48',
-      expanded: 'h-48 sm:h-56 md:h-64 lg:h-80 xl:h-192',
-      hoverExpanded: 'hover:h-48 hover:sm:h-56 hover:md:h-64 hover:lg:h-80 hover:xl:h-192'
+      expanded: 'h-48 sm:h-56 md:h-64 lg:h-80 xl:h-96',
+      hoverExpanded: 'hover:h-48 hover:sm:h-56 hover:md:h-64 hover:lg:h-80 hover:xl:h-96'
     },
     scaling: {
-      expanded: 'max-w-none sm:scale-x-102 md:scale-x-105 lg:scale-x-110',
-      hover: 'hover:max-w-none hover:sm:scale-x-102 hover:md:scale-x-105 hover:lg:scale-x-110'
+      expanded: 'max-w-none sm:scale-105 md:scale-110 lg:scale-125',
+      hover: 'hover:max-w-none hover:sm:scale-105 hover:md:scale-110 hover:lg:scale-125'
     },
     animations: {
       transition: 'transition-all duration-300 ease-out',
@@ -85,8 +95,8 @@ const DESIGN_CONFIG = {
     styling: {
       borderRadius: 'rounded-xl md:rounded-2xl',
       zIndex: {
-        expanded: 'z-10',
-        hover: 'hover:z-10'
+        expanded: 'z-30',
+        hover: 'hover:z-20'
       }
     }
   },
@@ -102,6 +112,7 @@ const DESIGN_CONFIG = {
 // ============================================================================
 const PAGE_CONTENT = {
   section: {
+    titleText: "한 점의 고기, 그 너머의 시간", // 타이핑 애니메이션용 순수 텍스트
     title: (
       <>
         <span className={DESIGN_CONFIG.colors.text.accent}>한 점의 고기,</span> <br />
@@ -182,6 +193,86 @@ export function PopularMenu() {
   // 🔄 상태 관리
   // ============================================================================
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
+  
+  // 타이핑 애니메이션 상태
+  const [displayedText, setDisplayedText] = useState('')
+  const [isTypingComplete, setIsTypingComplete] = useState(false)
+  const [showDescription, setShowDescription] = useState(false)
+  const [descriptionText, setDescriptionText] = useState('')
+  const [isDescriptionComplete, setIsDescriptionComplete] = useState(false)
+  
+  // 카드 애니메이션 상태
+  const [visibleCards, setVisibleCards] = useState<number[]>([0, 1, 2, 3, 4]) // 모든 카드 즉시 표시
+
+  // ============================================================================
+  // 🎬 타이핑 애니메이션 효과
+  // ============================================================================
+  useEffect(() => {
+    console.log('타이핑 애니메이션 시작!') // 디버깅용
+    
+    const fullText = PAGE_CONTENT.section.titleText
+    let currentIndex = 0
+    
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex))
+        currentIndex++
+      } else {
+        console.log('제목 타이핑 완료!') // 디버깅용
+        clearInterval(typingInterval)
+        setIsTypingComplete(true)
+        
+        // 타이핑 완료 후 페이드인 먼저 시작, 그 다음 타이핑 효과
+        setTimeout(() => {
+          console.log('설명 페이드인 시작!') // 디버깅용
+          setShowDescription(true)
+          // 페이드인 애니메이션이 어느정도 진행된 후 타이핑 시작
+          setTimeout(() => {
+            console.log('설명 타이핑 시작!') // 디버깅용
+            startDescriptionTyping()
+          }, 400)
+        }, 600)
+      }
+    }, 150) // 150ms마다 한 글자씩 타이핑 (더 느리게)
+
+    return () => clearInterval(typingInterval)
+  }, [])
+
+  // 설명 텍스트 타이핑 효과
+  const startDescriptionTyping = () => {
+    const fullDescriptionText = "접시에 담기는 건 단순한 음식이 아니라,\n장인의 철학과 식탁 위의 품격입니다."
+    let currentIndex = 0
+    
+    const descriptionInterval = setInterval(() => {
+      if (currentIndex <= fullDescriptionText.length) {
+        setDescriptionText(fullDescriptionText.slice(0, currentIndex))
+        currentIndex++
+      } else {
+        console.log('설명 타이핑 완료!') // 디버깅용
+        clearInterval(descriptionInterval)
+        setIsDescriptionComplete(true)
+        
+        // 설명 타이핑 완료 후 카드 애니메이션 시작
+        setTimeout(() => {
+          console.log('설명 타이핑 완료! 카드 애니메이션 시작') // 디버깅용
+          startCardAnimations()
+        }, 800)
+      }
+    }, 80) // 설명 텍스트는 더 빠르게
+  }
+
+  // 카드 순차 등장 애니메이션
+  const startCardAnimations = () => {
+    console.log('카드 애니메이션 시작!') // 디버깅용
+    
+    // 카드를 순차적으로 등장시키기
+    MENU_DATA.popularMenus.forEach((_, index) => {
+      setTimeout(() => {
+        setVisibleCards(prev => [...prev, index])
+        console.log(`카드 ${index} 등장!`) // 디버깅용
+      }, index * 300) // 300ms 간격으로 순차 등장
+    })
+  }
 
   // ============================================================================
   // 🎬 이벤트 핸들러
@@ -194,115 +285,177 @@ export function PopularMenu() {
   // 🎨 UI 컴포넌트들
   // ============================================================================
 
+  // 타이핑 제목 컴포넌트
+  const TypingTitle = () => {
+    // "한 점의 고기," 부분과 "그 너머의 시간" 부분을 분리
+    const firstPart = "한 점의 고기,"
+    const secondPart = "그 너머의 시간"
+    const breakPoint = firstPart.length
+    
+    return (
+      <h2 className={`${DESIGN_CONFIG.textSizes.section.title} ${DESIGN_CONFIG.fonts.section.title} tracking-tight ${DESIGN_CONFIG.layout.spacing.headerTitle}`}>
+        {displayedText.length > 0 && (
+          <>
+            <span className={DESIGN_CONFIG.colors.text.accent}>
+              {displayedText.slice(0, Math.min(displayedText.length, breakPoint))}
+            </span>
+            {displayedText.length > breakPoint && (
+              <>
+                {" "}<br />
+                <span className={DESIGN_CONFIG.colors.text.gradient}>
+                  {displayedText.slice(breakPoint).trim()}
+                </span>
+              </>
+            )}
+          </>
+        )}
+        {/* 타이핑 커서 효과 */}
+        {!isTypingComplete && (
+          <span className={`inline-block w-1 h-6 sm:h-8 md:h-10 lg:h-12 xl:h-14 2xl:h-16 ${DESIGN_CONFIG.colors.text.accent} animate-pulse ml-1`}>|</span>
+        )}
+      </h2>
+    )
+  }
+
   // 섹션 헤더 컴포넌트
   const SectionHeader = () => (
     <div className={`text-center ${DESIGN_CONFIG.layout.spacing.header}`}>
-      <h2 className={`${DESIGN_CONFIG.textSizes.section.title} ${DESIGN_CONFIG.fonts.section.title} tracking-tight ${DESIGN_CONFIG.layout.spacing.headerTitle}`}>
-        {PAGE_CONTENT.section.title}
-      </h2>
-      <p className={`${DESIGN_CONFIG.textSizes.section.description} ${DESIGN_CONFIG.fonts.section.description} leading-relaxed max-w-3xl mx-auto ${DESIGN_CONFIG.colors.text.secondary} ${DESIGN_CONFIG.layout.spacing.cardPadding}`}>
-        {PAGE_CONTENT.section.description}
-      </p>
+      <TypingTitle />
+      
+      {/* 설명 텍스트 - 페이드인 + 타이핑 효과 */}
+      <div 
+        className={`${DESIGN_CONFIG.layout.spacing.headerTitle} transition-all duration-1000 ease-out ${
+          showDescription 
+            ? 'opacity-100 transform translate-y-0' 
+            : 'opacity-0 transform translate-y-8'
+        }`}
+      >
+        <p className={`${DESIGN_CONFIG.textSizes.section.description} ${DESIGN_CONFIG.fonts.section.description} leading-relaxed max-w-3xl mx-auto ${DESIGN_CONFIG.colors.text.secondary} ${DESIGN_CONFIG.layout.spacing.cardPadding} whitespace-pre-line`}>
+          {descriptionText}
+          {descriptionText.length > 0 && descriptionText.length < "접시에 담기는 건 단순한 음식이 아니라,\n장인의 철학과 식탁 위의 품격입니다.".length && (
+            <span className={`inline-block w-0.5 h-4 sm:h-5 md:h-6 lg:h-7 xl:h-8 ${DESIGN_CONFIG.colors.text.secondary} animate-pulse ml-1`}>|</span>
+          )}
+        </p>
+      </div>
     </div>
   )
 
-  // 메뉴 카드 컴포넌트
+    // 메뉴 카드 컴포넌트
   const MenuCard = ({ menu, index }: { menu: typeof MENU_DATA.popularMenus[0], index: number }) => {
     const isExpanded = expandedCard === menu.id
     const isEvenIndex = index % 2 === 0
     
+    // 카드 내부 클래스
+    const getCardClasses = () => {
+      let baseClasses = `relative ${DESIGN_CONFIG.card.animations.transition} cursor-pointer overflow-hidden ${DESIGN_CONFIG.card.styling.borderRadius} group w-full max-w-6xl`
+      
+      // 크기 및 상태 클래스
+      if (isExpanded) {
+        baseClasses += ` ${DESIGN_CONFIG.card.sizes.expanded} ${DESIGN_CONFIG.card.scaling.expanded} ${DESIGN_CONFIG.card.styling.zIndex.expanded}`
+      } else {
+        baseClasses += ` ${DESIGN_CONFIG.card.sizes.collapsed} ${DESIGN_CONFIG.card.sizes.hoverExpanded} ${DESIGN_CONFIG.card.scaling.hover} ${DESIGN_CONFIG.card.styling.zIndex.hover}`
+      }
+      
+      return baseClasses
+    }
+    
+    // 원래 카드 디자인 복원
     return (
       <div className={`flex w-full ${isEvenIndex ? 'justify-start' : 'justify-end'}`}>
-        <div 
-          className={`relative ${DESIGN_CONFIG.card.animations.transition} cursor-pointer overflow-hidden ${DESIGN_CONFIG.card.styling.borderRadius} group w-full max-w-6xl
-            ${isExpanded 
-              ? `${DESIGN_CONFIG.card.sizes.expanded} ${DESIGN_CONFIG.card.scaling.expanded} ${DESIGN_CONFIG.card.styling.zIndex.expanded}` 
-              : `${DESIGN_CONFIG.card.sizes.collapsed} ${DESIGN_CONFIG.card.sizes.hoverExpanded} ${DESIGN_CONFIG.card.scaling.hover}`
-            }
-            ${DESIGN_CONFIG.card.styling.zIndex.hover}
-          `}
-          onClick={() => handleCardClick(menu.id)}
-        >
-          {/* 배경 그라데이션 (이미지가 없을 때의 플레이스홀더) */}
-          <div className={`absolute inset-0 bg-gradient-to-r ${menu.bgColor}`}>
-            <div className="absolute inset-0 flex items-center justify-center opacity-10">
-              <Heart className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-16 lg:w-16 text-white" />
-            </div>
-          </div>
-
-          {/* 배경 이미지 (있을 경우) */}
+        <div className="w-full max-w-6xl">
           <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url(${menu.image})`
-            }}
-          />
+            className={getCardClasses()}
+            onClick={() => handleCardClick(menu.id)}
+          >
+            {/* 배경 그라데이션 (이미지가 없을 때의 플레이스홀더) */}
+            <div className={`absolute inset-0 bg-gradient-to-r ${menu.bgColor}`}>
+              <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                <Heart className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-16 lg:w-16 text-white" />
+              </div>
+            </div>
 
-          {/* 기본 상태 - 메뉴명만 표시 */}
-          <div className={`absolute inset-0 flex items-center justify-center ${DESIGN_CONFIG.card.animations.opacityTransition}
-            ${isExpanded ? 'opacity-0' : 'group-hover:opacity-0'}
-          `}>
-            <h3 className={`${DESIGN_CONFIG.textSizes.card.titleCollapsed} ${DESIGN_CONFIG.fonts.card.title} ${DESIGN_CONFIG.colors.text.primary} text-center tracking-wide drop-shadow-lg ${DESIGN_CONFIG.layout.spacing.cardPadding}`}>
-              {menu.name}
-            </h3>
-          </div>
+            {/* 배경 이미지 (있을 경우) */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url(${menu.image})`
+              }}
+            />
 
-          {/* 확장 상태 - 상세 정보 표시 */}
-          <div className={`absolute bottom-0 left-0 right-0 ${DESIGN_CONFIG.card.animations.contentTransition} ${DESIGN_CONFIG.layout.spacing.cardContent}
-            ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 group-hover:opacity-100 transform translate-y-8 group-hover:translate-y-0'}
-          `}>
-            {/* 콘텐츠 */}
-            <div className={`text-center ${DESIGN_CONFIG.colors.text.primary}`}>
-              <h3 className={`${DESIGN_CONFIG.textSizes.card.titleExpanded} ${DESIGN_CONFIG.fonts.card.title} mb-2 sm:mb-3 md:mb-4 tracking-wide`}>
+            {/* 기본 상태 - 메뉴명만 표시 */}
+            <div className={`absolute inset-0 flex items-center justify-center ${DESIGN_CONFIG.card.animations.opacityTransition}
+              ${isExpanded ? 'opacity-0' : 'group-hover:opacity-0'}
+            `}>
+              <h3 className={`${DESIGN_CONFIG.textSizes.card.titleCollapsed} ${DESIGN_CONFIG.fonts.card.title} ${DESIGN_CONFIG.colors.text.primary} text-center tracking-wide drop-shadow-lg ${DESIGN_CONFIG.layout.spacing.cardPadding}`}>
                 {menu.name}
               </h3>
-              <p className={`${DESIGN_CONFIG.textSizes.card.description} ${DESIGN_CONFIG.fonts.card.description} ${DESIGN_CONFIG.colors.text.secondary} mb-3 sm:mb-4 md:mb-6 leading-relaxed px-2`}>
-                {menu.description}
-              </p>
-              
-              {/* 가격 */}
-              <div className="flex items-center justify-center">
-                <span className={`${DESIGN_CONFIG.textSizes.card.price} ${DESIGN_CONFIG.fonts.card.price} ${DESIGN_CONFIG.colors.card.priceColor}`}>
-                  {menu.price.toLocaleString()}원
-                </span>
+            </div>
+
+            {/* 확장 상태 - 상세 정보 표시 */}
+            <div className={`absolute bottom-0 left-0 right-0 ${DESIGN_CONFIG.card.animations.contentTransition} ${DESIGN_CONFIG.layout.spacing.cardContent}
+              ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 group-hover:opacity-100 transform translate-y-8 group-hover:translate-y-0'}
+            `}>
+              {/* 콘텐츠 */}
+              <div className={`text-center ${DESIGN_CONFIG.colors.text.primary}`}>
+                <h3 className={`${DESIGN_CONFIG.textSizes.card.titleExpanded} ${DESIGN_CONFIG.fonts.card.title} mb-2 sm:mb-3 md:mb-4 tracking-wide`}>
+                  {menu.name}
+                </h3>
+                <p className={`${DESIGN_CONFIG.textSizes.card.description} ${DESIGN_CONFIG.fonts.card.description} ${DESIGN_CONFIG.colors.text.secondary} mb-3 sm:mb-4 md:mb-6 leading-relaxed px-2`}>
+                  {menu.description}
+                </p>
+                
+                {/* 가격 */}
+                <div className="flex items-center justify-center">
+                  <span className={`${DESIGN_CONFIG.textSizes.card.price} ${DESIGN_CONFIG.fonts.card.price} ${DESIGN_CONFIG.colors.card.priceColor}`}>
+                    {menu.price.toLocaleString()}원
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     )
+
+    // 기존 복잡한 카드 코드는 임시로 주석 처리함
   }
 
   // ============================================================================
   // 🎯 메인 렌더링
   // ============================================================================
   return (
-    <section 
-      className={`${DESIGN_CONFIG.layout.sectionHeight} relative ${DESIGN_CONFIG.layout.padding}`}
-      style={{
-        backgroundImage: `url('${DESIGN_CONFIG.backgroundImages.section}')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
-      {/* 배경 오버레이 */}
-      <div className={`absolute inset-0 ${DESIGN_CONFIG.colors.background.overlay}`}></div>
+    <>
+      {/* 커스텀 CSS 스타일 */}
+      <style jsx global>{customStyles}</style>
       
-      {/* 콘텐츠 래퍼 */}
-      <div className="relative z-10">
-        {/* 🎨 섹션 헤더 */}
-        <SectionHeader />
+      <section 
+        className={`${DESIGN_CONFIG.layout.sectionHeight} relative ${DESIGN_CONFIG.layout.padding}`}
+        style={{
+          backgroundImage: `url('${DESIGN_CONFIG.backgroundImages.section}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* 배경 오버레이 */}
+        <div className={`absolute inset-0 ${DESIGN_CONFIG.colors.background.overlay}`}></div>
+        
+        {/* 콘텐츠 래퍼 */}
+        <div className="relative z-10">
+          {/* 🎨 섹션 헤더 */}
+          <SectionHeader />
 
-        {/* 🍖 메뉴 카드 컨테이너 */}
-        <div className={`${DESIGN_CONFIG.layout.maxWidth} mx-auto ${DESIGN_CONFIG.layout.spacing.cardPadding}`}>
-          <div className={DESIGN_CONFIG.layout.spacing.cards}>
-            {MENU_DATA.popularMenus.map((menu, index) => (
-              <MenuCard key={menu.id} menu={menu} index={index} />
-            ))}
+          {/* 🍖 메뉴 카드 컨테이너 */}
+          <div className={`${DESIGN_CONFIG.layout.maxWidth} mx-auto ${DESIGN_CONFIG.layout.spacing.cardPadding}`}>
+
+            <div className={DESIGN_CONFIG.layout.spacing.cards}>
+              {MENU_DATA.popularMenus.map((menu, index) => (
+                <MenuCard key={menu.id} menu={menu} index={index} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 } 
