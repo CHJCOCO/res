@@ -17,7 +17,7 @@ const DESIGN_CONFIG = {
     },
     text: {
       primary: '#d4a437', // 메인 텍스트 색상 (골드)
-      gradient: 'bg-gradient-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent', // Hero와 동일한 그라디언트
+      gradient: 'bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-500 bg-clip-text text-transparent', // 골드 그라디언트
       secondary: 'text-white', // 보조 텍스트 색상
       description: 'text-white' // 설명 텍스트 색상
     }
@@ -97,8 +97,8 @@ const CONTENT_CONFIG = {
       )
     },
     {
-      image: '/images/pp2.png',
-      title: '고기 위의 장인정신',
+      image: '/images/stst.png',
+      title: '불 위의 예술',
       description: '단순한 요리를 넘어선\n정밀한 기술',
       descriptionJSX: (
         <>
