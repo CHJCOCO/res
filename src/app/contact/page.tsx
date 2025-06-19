@@ -20,7 +20,7 @@ export default function ContactPage() {
         </div>
 
         {/* 지도 및 매장 정보 섹션 */}
-        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden mb-8 sm:mb-10 md:mb-12">
+        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-xs rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden mb-8 sm:mb-10 md:mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[500px]">
             {/* 스마트 지도 (데스크탑: 네이버 지도, 모바일: 구글 지도) */}
             <div className="w-full lg:h-full">
@@ -39,7 +39,7 @@ export default function ContactPage() {
               
               <div className="space-y-6 sm:space-y-7 md:space-y-8">
                 {/* 주소 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                   <div className="flex items-center mb-3 sm:mb-4">
                     <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-[#c89b3c] mr-2 sm:mr-3" />
                     <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">Address</h3>
@@ -51,7 +51,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* 영업시간 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                   <div className="flex items-center mb-3 sm:mb-4">
                     <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#c89b3c] mr-2 sm:mr-3" />
                     <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">Hours</h3>
@@ -72,7 +72,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* 전화번호 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                   <div className="flex items-center mb-3 sm:mb-4">
                     <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-[#c89b3c] mr-2 sm:mr-3" />
                     <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">Contact</h3>
@@ -90,7 +90,7 @@ export default function ContactPage() {
         </div>
 
         {/* 교통 및 주차 안내 섹션 */}
-        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden mb-8 sm:mb-10 md:mb-12">
+        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-xs rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden mb-8 sm:mb-10 md:mb-12">
           <div className="p-6 sm:p-8 lg:p-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-10 md:mb-12 tracking-wider uppercase">
               Transportation
@@ -98,44 +98,44 @@ export default function ContactPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {/* 자동차 이용 */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                 <div className="flex items-center mb-4 sm:mb-6">
                   <Car className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] mr-2 sm:mr-3" />
                   <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">By Car</h3>
                 </div>
                 <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-[#bbbbbb]">
                   <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 shrink-0" />
                     <p>건물 지하 주차장 1시간 무료</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 shrink-0" />
                     <p>이후 10분당 1,000원</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 shrink-0" />
                     <p>발렛파킹 서비스 제공 (저녁 시간대)</p>
                   </div>
                 </div>
               </div>
 
               {/* 대중교통 이용 */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                 <div className="flex items-center mb-4 sm:mb-6">
                   <Train className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] mr-2 sm:mr-3" />
                   <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">Public Transport</h3>
                 </div>
                 <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-[#bbbbbb]">
                   <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 shrink-0" />
                     <p>2호선 강남역 3번 출구에서 도보 5분</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 shrink-0" />
                     <p>신분당선 강남역 1번 출구에서 도보 3분</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 flex-shrink-0" />
+                    <div className="w-2 h-2 bg-[#c89b3c] rounded-full mt-2 shrink-0" />
                     <p>버스 정류장: 강남역.강남역사거리 하차</p>
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export default function ContactPage() {
         </div>
 
         {/* 편의시설 안내 섹션 */}
-        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden mb-8 sm:mb-10 md:mb-12">
+        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-xs rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden mb-8 sm:mb-10 md:mb-12">
           <div className="p-6 sm:p-8 lg:p-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-white text-center mb-8 sm:mb-10 md:mb-12 tracking-wider uppercase">
               Facilities
@@ -153,30 +153,30 @@ export default function ContactPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/* 편의시설 항목들 */}
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                 <div className="flex items-center space-x-3 sm:space-x-4">
-                  <Baby className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] flex-shrink-0" />
+                  <Baby className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] shrink-0" />
                   <span className="text-[#bbbbbb] text-sm sm:text-base">유아용 의자 제공됨</span>
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                 <div className="flex items-center space-x-3 sm:space-x-4">
-                  <Wifi className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] flex-shrink-0" />
+                  <Wifi className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] shrink-0" />
                   <span className="text-[#bbbbbb] text-sm sm:text-base">무료 Wi-Fi 사용 가능</span>
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                 <div className="flex items-center space-x-3 sm:space-x-4">
-                  <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] flex-shrink-0" />
+                  <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] shrink-0" />
                   <span className="text-[#bbbbbb] text-sm sm:text-base">콘센트 일부 테이블에서 사용 가능</span>
                 </div>
               </div>
 
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                 <div className="flex items-center space-x-3 sm:space-x-4">
-                  <Accessibility className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] flex-shrink-0" />
+                  <Accessibility className="h-5 w-5 sm:h-6 sm:w-6 text-[#c89b3c] shrink-0" />
                   <span className="text-[#bbbbbb] text-sm sm:text-base">휠체어 진입 가능 (입구 경사로 있음)</span>
                 </div>
               </div>
@@ -184,7 +184,7 @@ export default function ContactPage() {
 
             {/* 추가 안내사항 */}
             <div className="mt-8 sm:mt-10 md:mt-12">
-              <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+              <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                 <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base mb-4">Additional Info</h3>
                 <div className="text-[#bbbbbb] space-y-2 sm:space-y-3 text-sm sm:text-base leading-relaxed">
                   <p>• 단체 예약 시 사전 문의 부탁드립니다</p>
@@ -197,7 +197,7 @@ export default function ContactPage() {
         </div>
 
         {/* 하단 마무리 */}
-        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-xs rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
           <div className="p-6 sm:p-8 lg:p-12 text-center">
             <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6 tracking-wider uppercase">
               Contact Us

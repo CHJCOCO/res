@@ -67,7 +67,7 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4 text-gray-200 tracking-wider uppercase">Location</h3>
             <div className="text-gray-300">
               <div className="flex items-start mb-3">
-                <MapPin className="h-4 w-4 mr-3 mt-1 flex-shrink-0 text-[#d4a437]" />
+                <MapPin className="h-4 w-4 mr-3 mt-1 shrink-0 text-[#d4a437]" />
                 <div className="leading-relaxed">
                   <span className="tracking-wide">123 TEHERAN-RO, GANGNAM-GU<br />SEOUL, ABC BUILDING 1F</span>
                 </div>

@@ -93,7 +93,7 @@ const DESIGN_CONFIG = {
       spacing: 'space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-16',
       borderRadius: 'rounded-2xl',
       padding: 'p-6 sm:p-8 md:p-10 lg:p-12',
-      aspect: 'aspect-[3/5]'
+      aspect: 'aspect-3/5'
     },
     sliderControls: {
       gap: 'gap-4 sm:gap-6',
@@ -107,7 +107,7 @@ const DESIGN_CONFIG = {
     transition: 'transition-all duration-300',
     hoverScale: 'group-hover:scale-105',
     imageTransition: 'transition-transform duration-500',
-    backdropBlur: 'backdrop-blur-sm'
+    backdropBlur: 'backdrop-blur-xs'
   },
   
   // 배경 이미지 설정
@@ -398,7 +398,7 @@ export function SignatureMenu() {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 rounded-full bg-linear-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </button>
 
                   <button
@@ -418,7 +418,7 @@ export function SignatureMenu() {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 rounded-full bg-linear-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </button>
                 </div>
 

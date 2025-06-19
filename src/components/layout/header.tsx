@@ -28,7 +28,7 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-lg font-semibold tracking-wider uppercase transition-all duration-300 ease-in-out bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 bg-clip-text text-transparent hover:from-gray-100 hover:via-gray-200 hover:to-gray-300 hover:scale-105"
+                className="text-lg font-semibold tracking-wider uppercase transition-all duration-300 ease-in-out bg-linear-to-r from-gray-200 via-gray-300 to-gray-400 bg-clip-text text-transparent hover:from-gray-100 hover:via-gray-200 hover:to-gray-300 hover:scale-105"
               >
                 {item.name}
               </Link>
@@ -52,7 +52,7 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-lg font-semibold tracking-wider uppercase transition-all duration-300 ease-in-out bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 bg-clip-text text-transparent hover:from-gray-100 hover:via-gray-200 hover:to-gray-300 hover:scale-105"
+                  className="text-lg font-semibold tracking-wider uppercase transition-all duration-300 ease-in-out bg-linear-to-r from-gray-200 via-gray-300 to-gray-400 bg-clip-text text-transparent hover:from-gray-100 hover:via-gray-200 hover:to-gray-300 hover:scale-105"
                 >
                   {item.name}
                 </Link>
@@ -86,7 +86,7 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block text-lg font-semibold tracking-wider uppercase py-2 transition-all duration-300 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-400 bg-clip-text text-transparent hover:from-gray-100 hover:via-gray-200 hover:to-gray-300"
+                  className="block text-lg font-semibold tracking-wider uppercase py-2 transition-all duration-300 bg-linear-to-r from-gray-200 via-gray-300 to-gray-400 bg-clip-text text-transparent hover:from-gray-100 hover:via-gray-200 hover:to-gray-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

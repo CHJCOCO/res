@@ -46,7 +46,7 @@ export default function ReservationPage() {
         <div className="absolute inset-0 bg-black/60"></div>
         
         <div className="relative z-10 max-w-2xl w-full">
-          <div className="bg-black/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 text-center shadow-2xl border border-white/10">
+          <div className="bg-black/80 backdrop-blur-xs rounded-xl md:rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 text-center shadow-2xl border border-white/10">
             <CheckCircle className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 text-[#c89b3c] mx-auto mb-4 sm:mb-6 md:mb-8" />
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-5 md:mb-6 tracking-wide">
               예약이 완료되었습니다
@@ -118,7 +118,7 @@ export default function ReservationPage() {
         </div>
 
         {/* 메인 예약 박스 */}
-        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+        <div className="max-w-5xl mx-auto bg-black/80 backdrop-blur-xs rounded-xl md:rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* 왼쪽 - 예약 폼 */}
             <div className="p-6 sm:p-8 lg:p-12">
@@ -134,7 +134,7 @@ export default function ReservationPage() {
                     required
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-none focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-hidden focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
                     placeholder="예약자 이름을 입력하세요"
                   />
                 </div>
@@ -150,7 +150,7 @@ export default function ReservationPage() {
                     required
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-none focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-hidden focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
                     placeholder="010-1234-5678"
                   />
                 </div>
@@ -165,7 +165,7 @@ export default function ReservationPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-none focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-hidden focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
                     placeholder="이메일 주소를 입력하세요"
                   />
                 </div>
@@ -183,7 +183,7 @@ export default function ReservationPage() {
                       value={formData.date}
                       onChange={handleInputChange}
                       min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white focus:outline-none focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white focus:outline-hidden focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
                       style={{ colorScheme: 'dark' }}
                     />
                   </div>
@@ -196,7 +196,7 @@ export default function ReservationPage() {
                       required
                       value={formData.time}
                       onChange={handleInputChange}
-                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white focus:outline-none focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
+                      className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white focus:outline-hidden focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
                     >
                       <option value="" className="bg-[#2a1811] text-[#bbbbbb]">시간 선택</option>
                       {availableTimes.map(time => (
@@ -216,7 +216,7 @@ export default function ReservationPage() {
                     required
                     value={formData.partySize}
                     onChange={handleInputChange}
-                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white focus:outline-none focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white focus:outline-hidden focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300"
                   >
                     {[1,2,3,4,5,6,7,8,9,10].map(num => (
                       <option key={num} value={num} className="bg-[#2a1811] text-white">{num}명</option>
@@ -234,7 +234,7 @@ export default function ReservationPage() {
                     value={formData.specialRequests}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-none focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300 resize-none"
+                    className="w-full px-3 sm:px-4 py-3 sm:py-4 bg-transparent border border-white/20 rounded-lg text-base sm:text-lg text-white placeholder-[#666] focus:outline-hidden focus:border-[#c89b3c] focus:ring-1 focus:ring-[#c89b3c]/50 transition-all duration-300 resize-none"
                     placeholder="알레르기, 특별한 요청사항 등을 적어주세요"
                   />
                 </div>
@@ -250,16 +250,16 @@ export default function ReservationPage() {
             </div>
 
             {/* 오른쪽 - 배경 이미지 및 정보 */}
-            <div className="relative bg-gradient-to-br from-[#2a1811] to-[#1a0f0a] p-6 sm:p-8 lg:p-12">
+            <div className="relative bg-linear-to-br from-[#2a1811] to-[#1a0f0a] p-6 sm:p-8 lg:p-12">
               {/* 배경 패턴 */}
               <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0 bg-[url('/images/bg7.png')] bg-cover bg-center filter blur-sm"></div>
+                <div className="absolute inset-0 bg-[url('/images/bg7.png')] bg-cover bg-center filter blur-xs"></div>
                 <div className="absolute inset-0 bg-black/60"></div>
               </div>
               
               <div className="relative z-10 space-y-6 sm:space-y-7 md:space-y-8">
                 {/* 영업시간 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                   <div className="flex items-center mb-3 sm:mb-4">
                     <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#c89b3c] mr-2 sm:mr-3" />
                     <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">HOURS</h3>
@@ -281,7 +281,7 @@ export default function ReservationPage() {
                 </div>
 
                 {/* 연락처 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                   <div className="flex items-center mb-3 sm:mb-4">
                     <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-[#c89b3c] mr-2 sm:mr-3" />
                     <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">CONTACT</h3>
@@ -299,7 +299,7 @@ export default function ReservationPage() {
                 </div>
 
                 {/* 예약 안내 */}
-                <div className="bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
+                <div className="bg-white/5 backdrop-blur-xs rounded-lg md:rounded-xl p-4 sm:p-5 md:p-6 border border-white/10">
                   <div className="flex items-center mb-3 sm:mb-4">
                     <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-[#c89b3c] mr-2 sm:mr-3" />
                     <h3 className="text-white font-semibold tracking-wider uppercase text-sm sm:text-base">POLICY</h3>

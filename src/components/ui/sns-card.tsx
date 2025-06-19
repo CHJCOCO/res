@@ -33,7 +33,7 @@ export default function SNSCard({ post }: SNSCardProps) {
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group">
       {/* Header */}
       <div className="flex items-center p-4 border-b border-gray-100">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 via-purple-500 to-orange-400 flex items-center justify-center text-white font-bold text-sm">
+        <div className="w-10 h-10 rounded-full bg-linear-to-br from-pink-400 via-purple-500 to-orange-400 flex items-center justify-center text-white font-bold text-sm">
           {post.username ? post.username[0].toUpperCase() : '?'}
         </div>
         <div className="ml-3 flex-1">
@@ -76,7 +76,7 @@ export default function SNSCard({ post }: SNSCardProps) {
         )}
 
         {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Action Bar */}

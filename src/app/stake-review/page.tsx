@@ -276,7 +276,7 @@ export default function StakeReviewPage() {
   // 에러 메시지 컴포넌트
   const ErrorMessage = () => (
     <div className="flex flex-col items-center justify-center py-32">
-      <div className="bg-red-900/20 border border-red-400/30 rounded-2xl p-8 max-w-md text-center backdrop-blur-sm">
+      <div className="bg-red-900/20 border border-red-400/30 rounded-2xl p-8 max-w-md text-center backdrop-blur-xs">
         <div className="w-16 h-16 bg-red-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -305,7 +305,7 @@ export default function StakeReviewPage() {
           className="w-full h-full bg-cover bg-center"
           style={{ backgroundImage: `url('${DESIGN_CONFIG.backgroundImages.hero}')` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/70"></div>
         <div className="absolute inset-0 backdrop-blur-[1px]"></div>
       </div>
 
@@ -360,7 +360,7 @@ export default function StakeReviewPage() {
       className={`group cursor-pointer transform ${DESIGN_CONFIG.animations.transition} ${DESIGN_CONFIG.animations.hoverScale}`}
       onClick={() => handlePostClick(post)}
     >
-      <div className={`relative overflow-hidden rounded-2xl bg-stone-800/30 backdrop-blur-sm border border-stone-700/30 shadow-xl hover:shadow-2xl hover:shadow-${DESIGN_CONFIG.colors.primary}-900/20`}>
+      <div className={`relative overflow-hidden rounded-2xl bg-stone-800/30 backdrop-blur-xs border border-stone-700/30 shadow-xl hover:shadow-2xl hover:shadow-${DESIGN_CONFIG.colors.primary}-900/20`}>
         {/* 이미지 영역 */}
         <div className="aspect-square relative overflow-hidden">
           <Image
@@ -370,7 +370,7 @@ export default function StakeReviewPage() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 ${DESIGN_CONFIG.animations.transition}`}></div>
+          <div className={`absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 ${DESIGN_CONFIG.animations.transition}`}></div>
           
           {/* 호버 오버레이 */}
           <div className={`absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 ${DESIGN_CONFIG.animations.transition}`}>
@@ -395,7 +395,7 @@ export default function StakeReviewPage() {
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-2">
-              <div className={`w-8 h-8 bg-gradient-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
+              <div className={`w-8 h-8 bg-linear-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                 </svg>
@@ -432,7 +432,7 @@ export default function StakeReviewPage() {
   // 🎯 메인 렌더링
   // ============================================================================
   return (
-    <main className={`min-h-screen bg-gradient-to-b ${DESIGN_CONFIG.colors.background.from} ${DESIGN_CONFIG.colors.background.via} ${DESIGN_CONFIG.colors.background.to}`}>
+    <main className={`min-h-screen bg-linear-to-b ${DESIGN_CONFIG.colors.background.from} ${DESIGN_CONFIG.colors.background.via} ${DESIGN_CONFIG.colors.background.to}`}>
       
       {/* 🎨 Hero 섹션 */}
       <HeroSection />
@@ -458,7 +458,7 @@ export default function StakeReviewPage() {
                 <button
                   key={hashtag.id}
                   onClick={() => handleHashtagClick(hashtag.id)}
-                  className={`px-6 py-3 rounded-full ${DESIGN_CONFIG.textSizes.filter.button} font-medium ${DESIGN_CONFIG.animations.transition} border backdrop-blur-sm ${
+                  className={`px-6 py-3 rounded-full ${DESIGN_CONFIG.textSizes.filter.button} font-medium ${DESIGN_CONFIG.animations.transition} border backdrop-blur-xs ${
                     selectedHashtag === hashtag.id
                       ? `${hashtag.color} text-white border-${DESIGN_CONFIG.colors.primary}-500 shadow-lg shadow-${DESIGN_CONFIG.colors.primary}-600/30`
                       : `bg-stone-800/50 ${DESIGN_CONFIG.colors.text.secondary} border-stone-600/50 hover:bg-stone-700/50 hover:border-${DESIGN_CONFIG.colors.primary}-600/50`
@@ -511,7 +511,7 @@ export default function StakeReviewPage() {
 
       {/* 🔍 모달 */}
       {selectedPost && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs">
           <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto bg-stone-900 rounded-2xl shadow-2xl">
             {/* 닫기 버튼 */}
             <button
@@ -536,7 +536,7 @@ export default function StakeReviewPage() {
             
             <div className="p-6">
               <div className="flex items-center space-x-3 mb-4">
-                <div className={`w-12 h-12 bg-gradient-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
+                <div className={`w-12 h-12 bg-linear-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
                   <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                   </svg>
@@ -587,7 +587,7 @@ export default function StakeReviewPage() {
                 href={selectedPost.url || selectedPost.permalink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`block w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white text-center py-3 rounded-full font-bold hover:from-pink-700 hover:to-purple-700 ${DESIGN_CONFIG.animations.transition}`}
+                className={`block w-full bg-linear-to-r from-pink-600 to-purple-600 text-white text-center py-3 rounded-full font-bold hover:from-pink-700 hover:to-purple-700 ${DESIGN_CONFIG.animations.transition}`}
               >
                 인스타그램에서 보기
               </a>

@@ -13,20 +13,20 @@ const DESIGN_CONFIG = {
     primary: 'red', // red, orange, amber, blue 등으로 변경 가능
     accent: 'orange',
     background: {
-      gradient: 'bg-gradient-to-b from-black via-gray-900 to-black',
-      overlay: 'bg-gradient-to-br from-black/80 via-transparent to-black/60'
+      gradient: 'bg-linear-to-b from-black via-gray-900 to-black',
+      overlay: 'bg-linear-to-br from-black/80 via-transparent to-black/60'
     },
     text: {
       primary: 'text-white',
-      gradient: 'bg-gradient-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent',
+      gradient: 'bg-linear-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent',
       secondary: 'text-gray-300'
     },
     effects: {
-      leftSmoke: 'bg-gradient-to-t from-red-900/20 to-transparent',
-      rightSmoke: 'bg-gradient-to-b from-orange-900/20 to-transparent',
-      videoOverlay: 'bg-gradient-to-t from-red-600/20 via-transparent to-black/20',
+      leftSmoke: 'bg-linear-to-t from-red-900/20 to-transparent',
+      rightSmoke: 'bg-linear-to-b from-orange-900/20 to-transparent',
+      videoOverlay: 'bg-linear-to-t from-red-600/20 via-transparent to-black/20',
       videoHover: 'bg-red-500/10',
-      circleGradient: 'bg-gradient-to-t from-amber-400/20 to-transparent',
+      circleGradient: 'bg-linear-to-t from-amber-400/20 to-transparent',
       pulse: 'bg-amber-400/20'
     }
   },
@@ -161,9 +161,9 @@ export function Hero() {
               
               {/* 메인 영상 박스 */}
               <div className="relative group cursor-pointer" onClick={() => setIsVideoExpanded(true)}>
-                <div className={`w-full ${DESIGN_CONFIG.layout.video.aspect} bg-gradient-to-br from-gray-900 to-black ${DESIGN_CONFIG.layout.video.borderRadius} ${DESIGN_CONFIG.animations.shadow} overflow-hidden`}>
+                <div className={`w-full ${DESIGN_CONFIG.layout.video.aspect} bg-linear-to-br from-gray-900 to-black ${DESIGN_CONFIG.layout.video.borderRadius} ${DESIGN_CONFIG.animations.shadow} overflow-hidden`}>
                   {/* 영상 배경 */}
-                  <div className="w-full h-full bg-gradient-to-br from-red-900/20 to-black relative">
+                  <div className="w-full h-full bg-linear-to-br from-red-900/20 to-black relative">
                     {/* 실제 영상 */}
                     <video 
                       autoPlay 
@@ -221,7 +221,7 @@ export function Hero() {
 
       {/* 영상 확대 모달 */}
       {isVideoExpanded && (
-        <div className={`fixed inset-0 z-[100] ${CONTENT_CONFIG.modal.backgroundOpacity} flex items-center justify-center p-4`}>
+        <div className={`fixed inset-0 z-100 ${CONTENT_CONFIG.modal.backgroundOpacity} flex items-center justify-center p-4`}>
           {/* 모달 배경 */}
           <div 
             className="absolute inset-0 bg-black/50"

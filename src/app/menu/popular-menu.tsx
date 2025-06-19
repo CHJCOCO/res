@@ -28,7 +28,7 @@ const DESIGN_CONFIG = {
       primary: 'text-white',
       secondary: 'text-gray-300',
       accent: 'text-[#d4a437]',
-      gradient: 'bg-gradient-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent'
+      gradient: 'bg-linear-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent'
     },
     card: {
       priceColor: 'text-yellow-400'
@@ -81,11 +81,11 @@ const DESIGN_CONFIG = {
     sizes: {
       collapsed: 'h-32 sm:h-40 md:h-44 lg:h-48',
       expanded: 'h-48 sm:h-56 md:h-64 lg:h-80 xl:h-96',
-      hoverExpanded: 'hover:h-48 hover:sm:h-56 hover:md:h-64 hover:lg:h-80 hover:xl:h-96'
+      hoverExpanded: 'hover:h-48 sm:hover:h-56 md:hover:h-64 lg:hover:h-80 xl:hover:h-96'
     },
     scaling: {
       expanded: 'max-w-none sm:scale-105 md:scale-110 lg:scale-125',
-      hover: 'hover:max-w-none hover:sm:scale-105 hover:md:scale-110 hover:lg:scale-125'
+      hover: 'hover:max-w-none sm:hover:scale-105 md:hover:scale-110 lg:hover:scale-125'
     },
     animations: {
       transition: 'transition-all duration-300 ease-out',
@@ -368,7 +368,7 @@ export function PopularMenu() {
             onClick={() => handleCardClick(menu.id)}
           >
             {/* 배경 그라데이션 (이미지가 없을 때의 플레이스홀더) */}
-            <div className={`absolute inset-0 bg-gradient-to-r ${menu.bgColor}`}>
+            <div className={`absolute inset-0 bg-linear-to-r ${menu.bgColor}`}>
               <div className="absolute inset-0 flex items-center justify-center opacity-10">
                 <Heart className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-16 lg:w-16 text-white" />
               </div>

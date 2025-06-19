@@ -55,7 +55,7 @@ const DESIGN_CONFIG = {
     },
     card: {
       spacing: 'space-y-6 lg:space-y-8', // 카드 간 간격
-      aspect: 'aspect-[4/3] lg:aspect-square', // 카드 비율
+      aspect: 'aspect-4/3 lg:aspect-square', // 카드 비율
       borderRadius: 'rounded-xl', // 모서리 둥글기
       padding: 'p-6 lg:p-8' // 카드 내부 패딩
     }
@@ -73,7 +73,7 @@ const DESIGN_CONFIG = {
       scale: 'group-hover:scale-105', // 호버 시 크기 변화
       transition: 'transition-all duration-500' // 트랜지션 효과
     },
-    gradient: 'bg-gradient-to-t from-black/40 via-transparent to-transparent' // 그라디언트 오버레이
+    gradient: 'bg-linear-to-t from-black/40 via-transparent to-transparent' // 그라디언트 오버레이
   },
   
   // 이미지 효과 설정

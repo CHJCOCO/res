@@ -23,7 +23,7 @@ export function FallbackMap({ className = '', width = '100%', height = '100%' }:
       />
       
       {/* 오버레이 정보 */}
-      <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-sm rounded-lg p-3 border border-white/10">
+      <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-xs rounded-lg p-3 border border-white/10">
         <h3 className="text-white font-semibold text-sm mb-1">🍽️ BISTRO</h3>
         <p className="text-[#bbbbbb] text-xs">서울시 강남구 테헤란로 123</p>
         <p className="text-[#c89b3c] text-xs mt-1">📞 02-1234-5678</p>

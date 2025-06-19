@@ -56,7 +56,7 @@ animations: {
   transition: 'transition-all duration-300',
   hoverScale: 'group-hover:scale-105',
   imageTransition: 'transition-transform duration-500',
-  backdropBlur: 'backdrop-blur-sm'
+  backdropBlur: 'backdrop-blur-xs'
 }
 
 특징:
