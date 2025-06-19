@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import type { InstagramPost } from '@/types';
 import { mockInstagramPosts, generateRandomEngagement, formatTimeAgo } from '@/lib/mock-instagram-data';
+import { useTypingEffect } from '@/hooks/useAnimation';
 import Image from 'next/image';
 
 // ============================================================================
@@ -297,62 +298,92 @@ export default function StakeReviewPage() {
   );
 
   // Hero 섹션 컴포넌트
-  const HeroSection = () => (
-    <section className={`relative ${DESIGN_CONFIG.layout.heroHeight} flex items-center justify-center overflow-hidden`}>
-      {/* 배경 이미지 */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url('${DESIGN_CONFIG.backgroundImages.hero}')` }}
-        />
-        <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/70"></div>
-        <div className="absolute inset-0 backdrop-blur-[1px]"></div>
-      </div>
+  const HeroSection = () => {
+    // 타이핑 효과 설정
+    const titleLine1 = useTypingEffect({
+      text: '당신의 한 끼가,',
+      speed: 80,
+      delay: 500,
+      showCursor: false
+    });
 
-      {/* Hero 콘텐츠 */}
-      <div className="relative z-10 text-center px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
+    const titleLine2 = useTypingEffect({
+      text: '우리의 이야기로',
+      speed: 80,
+      delay: titleLine1.isComplete ? 800 : 999999, // 첫 번째 줄 완료 후 시작
+      showCursor: true,
+      cursorChar: '|'
+    });
 
-        <h1 className={`${DESIGN_CONFIG.textSizes.hero.title} ${DESIGN_CONFIG.fonts.hero.title} ${DESIGN_CONFIG.colors.text.primary} mb-4 sm:mb-6 md:mb-8 tracking-tight leading-tight`}>
-          {PAGE_CONTENT.hero.title}
-        </h1>
-        
-        <p className={`${DESIGN_CONFIG.textSizes.hero.subtitle} ${DESIGN_CONFIG.fonts.hero.subtitle} ${DESIGN_CONFIG.colors.text.secondary} mb-3 sm:mb-4 md:mb-6 leading-relaxed`}>
-          {PAGE_CONTENT.hero.subtitle}
-        </p>
-        
-        <p className={`${DESIGN_CONFIG.textSizes.hero.description} ${DESIGN_CONFIG.fonts.hero.description} ${DESIGN_CONFIG.colors.text.muted} max-w-xl sm:max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 leading-relaxed px-2 sm:px-0`}>
-          {PAGE_CONTENT.hero.description}
-        </p>
+    return (
+      <section className={`relative ${DESIGN_CONFIG.layout.heroHeight} flex items-center justify-center overflow-hidden`}>
+        {/* 배경 이미지 */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: `url('${DESIGN_CONFIG.backgroundImages.hero}')` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+          <div className="absolute inset-0 backdrop-blur-[1px]"></div>
+        </div>
 
-        {/* 통계 정보 */}
-        <div className={`flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 ${DESIGN_CONFIG.colors.text.muted}`}>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
-            <span className={`${DESIGN_CONFIG.textSizes.hero.stats} ${DESIGN_CONFIG.fonts.hero.stats}`}>{PAGE_CONTENT.hero.stats.updateText}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <svg className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <span className={`${DESIGN_CONFIG.textSizes.hero.stats} ${DESIGN_CONFIG.fonts.hero.stats}`}>{posts.length}+ 리뷰</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <svg className="w-3 h-3 sm:w-4 sm:h-4 text-pink-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-            </svg>
-            <span className={`${DESIGN_CONFIG.textSizes.hero.stats} ${DESIGN_CONFIG.fonts.hero.stats}`}>평점 {PAGE_CONTENT.hero.stats.rating}</span>
+        {/* Hero 콘텐츠 */}
+        <div className="relative z-10 text-center px-4 sm:px-6 md:px-8 max-w-4xl mx-auto">
+
+          {/* 타이핑 애니메이션이 적용된 타이틀 */}
+          <h1 className={`${DESIGN_CONFIG.textSizes.hero.title} ${DESIGN_CONFIG.fonts.hero.title} ${DESIGN_CONFIG.colors.text.primary} mb-4 sm:mb-6 md:mb-8 tracking-tight leading-tight min-h-[1.2em]`}>
+            <span className="block">{titleLine1.displayText}</span>
+            <span className="block">{titleLine2.displayText}</span>
+          </h1>
+          
+          {/* 서브타이틀 - 타이틀 완료 후 페이드인 */}
+          <p className={`${DESIGN_CONFIG.textSizes.hero.subtitle} ${DESIGN_CONFIG.fonts.hero.subtitle} ${DESIGN_CONFIG.colors.text.secondary} mb-3 sm:mb-4 md:mb-6 leading-relaxed opacity-0 ${
+            titleLine2.isComplete ? 'animate-fade-in-smooth animation-delay-500' : ''
+          }`}>
+            {PAGE_CONTENT.hero.subtitle}
+          </p>
+          
+          {/* 설명 - 서브타이틀 후 페이드인 */}
+          <p className={`${DESIGN_CONFIG.textSizes.hero.description} ${DESIGN_CONFIG.fonts.hero.description} ${DESIGN_CONFIG.colors.text.muted} max-w-xl sm:max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 leading-relaxed px-2 sm:px-0 opacity-0 ${
+            titleLine2.isComplete ? 'animate-fade-in-smooth animation-delay-1000' : ''
+          }`}>
+            {PAGE_CONTENT.hero.description}
+          </p>
+
+          {/* 통계 정보 - 설명 후 페이드인 */}
+          <div className={`flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 ${DESIGN_CONFIG.colors.text.muted} opacity-0 ${
+            titleLine2.isComplete ? 'animate-fade-in-smooth animation-delay-1500' : ''
+          }`}>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+              <span className={`${DESIGN_CONFIG.textSizes.hero.stats} ${DESIGN_CONFIG.fonts.hero.stats}`}>{PAGE_CONTENT.hero.stats.updateText}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span className={`${DESIGN_CONFIG.textSizes.hero.stats} ${DESIGN_CONFIG.fonts.hero.stats}`}>{posts.length}+ 리뷰</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 text-pink-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              </svg>
+              <span className={`${DESIGN_CONFIG.textSizes.hero.stats} ${DESIGN_CONFIG.fonts.hero.stats}`}>평점 {PAGE_CONTENT.hero.stats.rating}</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* 스크롤 인디케이터 */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <svg className={`w-6 h-6 text-${DESIGN_CONFIG.colors.primary}-300`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </div>
-    </section>
-  );
+        {/* 스크롤 인디케이터 - 마지막에 페이드인 */}
+        <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce opacity-0 ${
+          titleLine2.isComplete ? 'animate-fade-in-smooth animation-delay-2000' : ''
+        }`}>
+          <svg className={`w-6 h-6 text-${DESIGN_CONFIG.colors.primary}-300`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+      </section>
+    );
+  };
 
   // 포스트 카드 컴포넌트
   const PostCard = ({ post }: { post: InstagramPost }) => (
@@ -370,7 +401,7 @@ export default function StakeReviewPage() {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className={`absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 ${DESIGN_CONFIG.animations.transition}`}></div>
+          <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 ${DESIGN_CONFIG.animations.transition}`}></div>
           
           {/* 호버 오버레이 */}
           <div className={`absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 ${DESIGN_CONFIG.animations.transition}`}>
@@ -395,7 +426,7 @@ export default function StakeReviewPage() {
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-2">
-              <div className={`w-8 h-8 bg-linear-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
+              <div className={`w-8 h-8 bg-gradient-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                 </svg>
@@ -432,7 +463,7 @@ export default function StakeReviewPage() {
   // 🎯 메인 렌더링
   // ============================================================================
   return (
-    <main className={`min-h-screen bg-linear-to-b ${DESIGN_CONFIG.colors.background.from} ${DESIGN_CONFIG.colors.background.via} ${DESIGN_CONFIG.colors.background.to}`}>
+    <main className={`min-h-screen bg-gradient-to-b ${DESIGN_CONFIG.colors.background.from} ${DESIGN_CONFIG.colors.background.via} ${DESIGN_CONFIG.colors.background.to}`}>
       
       {/* 🎨 Hero 섹션 */}
       <HeroSection />
@@ -536,7 +567,7 @@ export default function StakeReviewPage() {
             
             <div className="p-6">
               <div className="flex items-center space-x-3 mb-4">
-                <div className={`w-12 h-12 bg-linear-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
+                <div className={`w-12 h-12 bg-gradient-to-br from-${DESIGN_CONFIG.colors.primary}-400 to-${DESIGN_CONFIG.colors.accent}-600 rounded-full flex items-center justify-center`}>
                   <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
                   </svg>
@@ -587,7 +618,7 @@ export default function StakeReviewPage() {
                 href={selectedPost.url || selectedPost.permalink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`block w-full bg-linear-to-r from-pink-600 to-purple-600 text-white text-center py-3 rounded-full font-bold hover:from-pink-700 hover:to-purple-700 ${DESIGN_CONFIG.animations.transition}`}
+                className={`block w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white text-center py-3 rounded-full font-bold hover:from-pink-700 hover:to-purple-700 ${DESIGN_CONFIG.animations.transition}`}
               >
                 인스타그램에서 보기
               </a>

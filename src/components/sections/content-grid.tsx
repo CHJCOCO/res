@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useStaggerAnimation, useHoverAnimation } from '@/hooks/useAnimation'
+import { createAnimationClasses } from '@/lib/animation-config'
 
 // ============================================================================
 // 🎨 디자인 설정 (여기서 쉽게 커스터마이징 가능)
@@ -16,6 +17,7 @@ const DESIGN_CONFIG = {
     },
     text: {
       primary: '#d4a437', // 메인 텍스트 색상 (골드)
+      gradient: 'bg-gradient-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent', // Hero와 동일한 그라디언트
       secondary: 'text-white', // 보조 텍스트 색상
       description: 'text-white' // 설명 텍스트 색상
     }
@@ -63,16 +65,6 @@ const DESIGN_CONFIG = {
   
   // 애니메이션 설정
   animations: {
-    fadeIn: 'animate-fade-in-up', // 페이드인 애니메이션
-    delays: {
-      first: 'animation-delay-200', // 첫 번째 요소 지연
-      second: 'animation-delay-400', // 두 번째 요소 지연
-      third: 'animation-delay-600' // 세 번째 요소 지연
-    },
-    hover: {
-      scale: 'group-hover:scale-105', // 호버 시 크기 변화
-      transition: 'transition-all duration-500' // 트랜지션 효과
-    },
     gradient: 'bg-linear-to-t from-black/40 via-transparent to-transparent' // 그라디언트 오버레이
   },
   
@@ -132,36 +124,20 @@ const CONTENT_CONFIG = {
 }
 
 export function ContentGrid() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
+  // 새로운 스테이거 애니메이션 시스템 사용
+  const { elementRef, isItemVisible } = useStaggerAnimation({
+    itemCount: 3, // 3개의 카드
+    staggerDelay: 200, // 0.2초씩 지연
+    baseDelay: 100 // 기본 지연 0.1초
+  })
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '50px'
-      }
-    )
-
-    const currentRef = sectionRef.current
-    if (currentRef) {
-      observer.observe(currentRef)
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef)
-      }
-    }
-  }, [])
+  // 각 카드의 호버 애니메이션
+  const card1Hover = useHoverAnimation({ scale: 1.05, duration: 300 })
+  const card2Hover = useHoverAnimation({ scale: 1.05, duration: 300 })
+  const card3Hover = useHoverAnimation({ scale: 1.05, duration: 300 })
 
   return (
-    <section ref={sectionRef} className={`w-full relative ${DESIGN_CONFIG.layout.section.padding} overflow-hidden`}>
+    <section ref={elementRef} className={`w-full relative ${DESIGN_CONFIG.layout.section.padding} overflow-hidden`}>
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image 
@@ -182,45 +158,57 @@ export function ContentGrid() {
           <div className={`lg:col-span-1 ${DESIGN_CONFIG.layout.card.spacing}`}>
             
             {/* Upper Left - 첫 번째 요리 */}
-            <div className={`group relative ${DESIGN_CONFIG.layout.card.aspect} overflow-hidden ${DESIGN_CONFIG.layout.card.borderRadius} ${isVisible ? `${DESIGN_CONFIG.animations.fadeIn} ${DESIGN_CONFIG.animations.delays.first}` : 'opacity-0'}`}>
+            <div 
+              ref={card1Hover.elementRef as React.RefObject<HTMLDivElement>}
+              className={`group relative ${DESIGN_CONFIG.layout.card.aspect} overflow-hidden ${DESIGN_CONFIG.layout.card.borderRadius} ${
+                isItemVisible(0) ? createAnimationClasses('fadeInUp', 200) : 'opacity-0'
+              }`}
+              style={card1Hover.hoverStyles}
+            >
               <div className="w-full h-full relative bg-black">
                 <Image 
                   src={CONTENT_CONFIG.cards[0].image}
                   alt={CONTENT_CONFIG.cards[0].title}
                   fill
-                  className={`object-cover ${DESIGN_CONFIG.animations.hover.transition} ${DESIGN_CONFIG.animations.hover.scale}`}
+                  className="object-cover"
                 />
                 <div className={`absolute inset-0 ${DESIGN_CONFIG.animations.gradient}`}></div>
               </div>
               {/* Text Overlay */}
               <div className={`absolute bottom-0 left-0 right-0 ${DESIGN_CONFIG.layout.card.padding}`}>
-                <h3 className={`${DESIGN_CONFIG.textSizes.title.mobile} ${DESIGN_CONFIG.textSizes.title.tablet} ${DESIGN_CONFIG.fonts.title} mb-2`} style={{ color: DESIGN_CONFIG.colors.text.primary }}>
+                <h3 className={`${DESIGN_CONFIG.textSizes.title.mobile} ${DESIGN_CONFIG.textSizes.title.tablet} ${DESIGN_CONFIG.fonts.title} mb-2 ${DESIGN_CONFIG.colors.text.gradient}`}>
                   {CONTENT_CONFIG.cards[0].title}
                 </h3>
                 <p className={`${DESIGN_CONFIG.colors.text.description} ${DESIGN_CONFIG.textSizes.description.mobile} ${DESIGN_CONFIG.textSizes.description.tablet} leading-relaxed`}>
-                  {CONTENT_CONFIG.cards[0].descriptionJSX || CONTENT_CONFIG.cards[0].description}
+                  {CONTENT_CONFIG.cards[0].descriptionJSX}
                 </p>
               </div>
             </div>
 
             {/* Lower Left - 두 번째 요리 */}
-            <div className={`group relative ${DESIGN_CONFIG.layout.card.aspect} overflow-hidden ${DESIGN_CONFIG.layout.card.borderRadius} ${isVisible ? `${DESIGN_CONFIG.animations.fadeIn} ${DESIGN_CONFIG.animations.delays.second}` : 'opacity-0'}`}>
+            <div 
+              ref={card2Hover.elementRef as React.RefObject<HTMLDivElement>}
+              className={`group relative ${DESIGN_CONFIG.layout.card.aspect} overflow-hidden ${DESIGN_CONFIG.layout.card.borderRadius} ${
+                isItemVisible(1) ? createAnimationClasses('fadeInUp', 400) : 'opacity-0'
+              }`}
+              style={card2Hover.hoverStyles}
+            >
               <div className="w-full h-full relative bg-black">
                 <Image 
                   src={CONTENT_CONFIG.cards[1].image}
                   alt={CONTENT_CONFIG.cards[1].title}
                   fill
-                  className={`object-cover ${DESIGN_CONFIG.animations.hover.transition} ${DESIGN_CONFIG.animations.hover.scale}`}
+                  className="object-cover"
                 />
                 <div className={`absolute inset-0 ${DESIGN_CONFIG.animations.gradient}`}></div>
               </div>
               {/* Text Overlay */}
               <div className={`absolute bottom-0 left-0 right-0 ${DESIGN_CONFIG.layout.card.padding}`}>
-                <h3 className={`${DESIGN_CONFIG.textSizes.title.mobile} ${DESIGN_CONFIG.textSizes.title.tablet} ${DESIGN_CONFIG.fonts.title} mb-2`} style={{ color: DESIGN_CONFIG.colors.text.primary }}>
+                <h3 className={`${DESIGN_CONFIG.textSizes.title.mobile} ${DESIGN_CONFIG.textSizes.title.tablet} ${DESIGN_CONFIG.fonts.title} mb-2 ${DESIGN_CONFIG.colors.text.gradient}`}>
                   {CONTENT_CONFIG.cards[1].title}
                 </h3>
                 <p className={`${DESIGN_CONFIG.colors.text.description} ${DESIGN_CONFIG.textSizes.description.mobile} ${DESIGN_CONFIG.textSizes.description.tablet} leading-relaxed`}>
-                  {CONTENT_CONFIG.cards[1].descriptionJSX || CONTENT_CONFIG.cards[1].description}
+                  {CONTENT_CONFIG.cards[1].descriptionJSX}
                 </p>
               </div>
             </div>
@@ -229,23 +217,29 @@ export function ContentGrid() {
 
           {/* Right Column - Large image */}
           <div className="lg:col-span-2">
-            <div className={`group relative w-full h-full min-h-[400px] lg:min-h-full overflow-hidden ${DESIGN_CONFIG.layout.card.borderRadius} ${isVisible ? `${DESIGN_CONFIG.animations.fadeIn} ${DESIGN_CONFIG.animations.delays.third}` : 'opacity-0'}`}>
+            <div 
+              ref={card3Hover.elementRef as React.RefObject<HTMLDivElement>}
+              className={`group relative w-full h-full min-h-[400px] lg:min-h-full overflow-hidden ${DESIGN_CONFIG.layout.card.borderRadius} ${
+                isItemVisible(2) ? createAnimationClasses('fadeInUp', 600) : 'opacity-0'
+              }`}
+              style={card3Hover.hoverStyles}
+            >
               <div className="w-full h-full relative bg-black">
                 <Image 
                   src={CONTENT_CONFIG.cards[2].image}
                   alt={CONTENT_CONFIG.cards[2].title}
                   fill
-                  className={`object-cover ${DESIGN_CONFIG.animations.hover.transition} ${DESIGN_CONFIG.animations.hover.scale}`}
+                  className="object-cover"
                 />
                 <div className={`absolute inset-0 ${DESIGN_CONFIG.animations.gradient}`}></div>
               </div>
               {/* Text Overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-8 lg:p-12">
-                <h3 className={`text-xl sm:text-4xl lg:text-5xl xl:text-6xl ${DESIGN_CONFIG.fonts.title} mb-2 sm:mb-4`} style={{ color: DESIGN_CONFIG.colors.text.primary }}>
+                <h3 className={`text-xl sm:text-4xl lg:text-5xl xl:text-6xl ${DESIGN_CONFIG.fonts.title} mb-2 sm:mb-4 ${DESIGN_CONFIG.colors.text.gradient}`}>
                   {CONTENT_CONFIG.cards[2].title}
                 </h3>
                 <p className={`${DESIGN_CONFIG.colors.text.description} text-sm sm:text-lg lg:text-xl xl:text-2xl leading-relaxed max-w-2xl`}>
-                  {CONTENT_CONFIG.cards[2].descriptionJSX || CONTENT_CONFIG.cards[2].description}
+                  {CONTENT_CONFIG.cards[2].descriptionJSX}
                 </p>
               </div>
             </div>

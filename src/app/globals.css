@@ -152,16 +152,165 @@ html {
   overflow: hidden;
 }
 
-/* 그리드 애니메이션 효과 */
+/* ============================================================================ */
+/* 🎬 통합 애니메이션 시스템 - CSS 키프레임 정의 */
+/* ============================================================================ */
+
+/* 기본 페이드 애니메이션 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes fade-in-up {
-  0% {
+  from {
     opacity: 0;
     transform: translateY(30px);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 타이핑 효과 애니메이션 */
+@keyframes typing-cursor {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in-smooth {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 슬라이드 애니메이션 */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 스케일 애니메이션 */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-bounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 회전/스핀 애니메이션 */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 파도 효과 애니메이션 */
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+/* 펄스 효과 (더 부드러운 버전) */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* 글로우 효과 */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(212, 164, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(212, 164, 55, 0.6);
+  }
+}
+
+/* ============================================================================ */
+/* 🎨 애니메이션 클래스 정의 */
+/* ============================================================================ */
+
+/* 기본 페이드 애니메이션 */
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+  opacity: 0;
 }
 
 .animate-fade-in-up {
@@ -169,16 +318,140 @@ html {
   opacity: 0;
 }
 
+.animate-fade-in-down {
+  animation: fade-in-down 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* 슬라이드 애니메이션 */
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* 스케일 애니메이션 */
+.animate-scale-in {
+  animation: scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+.animate-scale-bounce {
+  animation: scale-bounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  opacity: 0;
+}
+
+/* 회전 애니메이션 */
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* 특수 효과 */
+.animate-wave {
+  animation: wave 0.6s ease-in-out;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* 타이핑 효과 클래스 */
+.animate-typing-cursor {
+  animation: typing-cursor 1s infinite;
+}
+
+.animate-fade-in-smooth {
+  animation: fade-in-smooth 0.8s ease-out forwards;
+}
+
+/* 순차적 애니메이션을 위한 딜레이 클래스들 */
+.animation-delay-0 {
+  animation-delay: 0ms;
+}
+
+.animation-delay-100 {
+  animation-delay: 0.1s;
+}
+
 .animation-delay-200 {
   animation-delay: 0.2s;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
 }
 
 .animation-delay-400 {
   animation-delay: 0.4s;
 }
 
+.animation-delay-500 {
+  animation-delay: 0.5s;
+}
+
 .animation-delay-600 {
   animation-delay: 0.6s;
+}
+
+.animation-delay-700 {
+  animation-delay: 0.7s;
+}
+
+.animation-delay-800 {
+  animation-delay: 800ms;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1000ms;
+}
+
+.animation-delay-1200 {
+  animation-delay: 1200ms;
+}
+
+.animation-delay-1400 {
+  animation-delay: 1400ms;
+}
+
+.animation-delay-1600 {
+  animation-delay: 1600ms;
+}
+
+.animation-delay-1800 {
+  animation-delay: 1800ms;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2000ms;
+}
+
+/* ============================================================================ */
+/* 🎯 접근성 고려 - 모션 감소 설정 */
+/* ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-pulse-soft,
+  .animate-spin-slow,
+  .animate-wave {
+    animation: none !important;
+  }
 }
 
 /* 스크롤바 숨김 */
@@ -205,3 +478,7 @@ html {
   word-break: break-word;
   overflow-wrap: break-word;
 }
+
+/* ============================================================================ */
+/* 🔧 미디어 쿼리 및 접근성 설정 */
+/* ============================================================================ */

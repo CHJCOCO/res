@@ -3,15 +3,7 @@
 import { Heart } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
-// ============================================================================
-// 🎬 애니메이션 제거 - 단순 표시
-// ============================================================================
-const customStyles = `
-  .card-wrapper {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`
+
 
 // ============================================================================
 // 🎨 디자인 설정 (여기서 쉽게 커스터마이징 가능)
@@ -28,7 +20,7 @@ const DESIGN_CONFIG = {
       primary: 'text-white',
       secondary: 'text-gray-300',
       accent: 'text-[#d4a437]',
-      gradient: 'bg-linear-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent'
+      gradient: 'bg-gradient-to-r from-red-600 via-red-500 to-orange-500 bg-clip-text text-transparent'
     },
     card: {
       priceColor: 'text-yellow-400'
@@ -198,18 +190,16 @@ export function PopularMenu() {
   const [displayedText, setDisplayedText] = useState('')
   const [isTypingComplete, setIsTypingComplete] = useState(false)
   const [showDescription, setShowDescription] = useState(false)
-  const [descriptionText, setDescriptionText] = useState('')
-  const [isDescriptionComplete, setIsDescriptionComplete] = useState(false)
   
   // 카드 애니메이션 상태
-  const [visibleCards, setVisibleCards] = useState<number[]>([0, 1, 2, 3, 4]) // 모든 카드 즉시 표시
+  const [visibleCards, setVisibleCards] = useState<number[]>([])
+  const [animatedCards, setAnimatedCards] = useState<number[]>([]) // 애니메이션 완료된 카드들
 
   // ============================================================================
-  // 🎬 타이핑 애니메이션 효과
+  // 🎬 애니메이션 효과
   // ============================================================================
   useEffect(() => {
-    console.log('타이핑 애니메이션 시작!') // 디버깅용
-    
+    // 타이핑 애니메이션 시작
     const fullText = PAGE_CONTENT.section.titleText
     let currentIndex = 0
     
@@ -218,60 +208,33 @@ export function PopularMenu() {
         setDisplayedText(fullText.slice(0, currentIndex))
         currentIndex++
       } else {
-        console.log('제목 타이핑 완료!') // 디버깅용
         clearInterval(typingInterval)
         setIsTypingComplete(true)
         
-        // 타이핑 완료 후 페이드인 먼저 시작, 그 다음 타이핑 효과
+        // 타이핑 완료 후 설명 페이드인
         setTimeout(() => {
-          console.log('설명 페이드인 시작!') // 디버깅용
           setShowDescription(true)
-          // 페이드인 애니메이션이 어느정도 진행된 후 타이핑 시작
+          
+          // 설명 페이드인(transition 1초) 후 카드 등장
           setTimeout(() => {
-            console.log('설명 타이핑 시작!') // 디버깅용
-            startDescriptionTyping()
-          }, 400)
+            startCardAnimations()
+          }, 1000) // 설명 애니메이션이 1초니까 1000ms로!
         }, 600)
       }
-    }, 150) // 150ms마다 한 글자씩 타이핑 (더 느리게)
+    }, 100) // 타이핑 속도
 
     return () => clearInterval(typingInterval)
   }, [])
 
-  // 설명 텍스트 타이핑 효과
-  const startDescriptionTyping = () => {
-    const fullDescriptionText = "접시에 담기는 건 단순한 음식이 아니라,\n장인의 철학과 식탁 위의 품격입니다."
-    let currentIndex = 0
-    
-    const descriptionInterval = setInterval(() => {
-      if (currentIndex <= fullDescriptionText.length) {
-        setDescriptionText(fullDescriptionText.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        console.log('설명 타이핑 완료!') // 디버깅용
-        clearInterval(descriptionInterval)
-        setIsDescriptionComplete(true)
-        
-        // 설명 타이핑 완료 후 카드 애니메이션 시작
-        setTimeout(() => {
-          console.log('설명 타이핑 완료! 카드 애니메이션 시작') // 디버깅용
-          startCardAnimations()
-        }, 800)
-      }
-    }, 80) // 설명 텍스트는 더 빠르게
-  }
-
-  // 카드 순차 등장 애니메이션
+  // 카드 즉시 등장 - 애니메이션은 CSS 애니메이션 클래스가 처리
   const startCardAnimations = () => {
-    console.log('카드 애니메이션 시작!') // 디버깅용
+    // 모든 카드를 즉시 보이게 함 (CSS 애니메이션의 delay로 순차 등장 효과)
+    setVisibleCards(MENU_DATA.popularMenus.map((_, index) => index))
     
-    // 카드를 순차적으로 등장시키기
-    MENU_DATA.popularMenus.forEach((_, index) => {
-      setTimeout(() => {
-        setVisibleCards(prev => [...prev, index])
-        console.log(`카드 ${index} 등장!`) // 디버깅용
-      }, index * 300) // 300ms 간격으로 순차 등장
-    })
+    // 애니메이션 완료 후 애니메이션 클래스 제거를 위한 타이머
+    setTimeout(() => {
+      setAnimatedCards(MENU_DATA.popularMenus.map((_, index) => index))
+    }, 1200) // 애니메이션 시간(0.8s) + 최대 지연시간(0.4s) 고려
   }
 
   // ============================================================================
@@ -287,9 +250,7 @@ export function PopularMenu() {
 
   // 타이핑 제목 컴포넌트
   const TypingTitle = () => {
-    // "한 점의 고기," 부분과 "그 너머의 시간" 부분을 분리
     const firstPart = "한 점의 고기,"
-    const secondPart = "그 너머의 시간"
     const breakPoint = firstPart.length
     
     return (
@@ -322,19 +283,17 @@ export function PopularMenu() {
     <div className={`text-center ${DESIGN_CONFIG.layout.spacing.header}`}>
       <TypingTitle />
       
-      {/* 설명 텍스트 - 페이드인 + 타이핑 효과 */}
+      {/* 설명 텍스트 - 커스텀 페이드인 애니메이션 */}
       <div 
-        className={`${DESIGN_CONFIG.layout.spacing.headerTitle} transition-all duration-1000 ease-out ${
+        className={`${DESIGN_CONFIG.layout.spacing.headerTitle} ${
           showDescription 
-            ? 'opacity-100 transform translate-y-0' 
-            : 'opacity-0 transform translate-y-8'
+            ? 'animate-fade-in-up' 
+            : 'opacity-0'
         }`}
       >
-        <p className={`${DESIGN_CONFIG.textSizes.section.description} ${DESIGN_CONFIG.fonts.section.description} leading-relaxed max-w-3xl mx-auto ${DESIGN_CONFIG.colors.text.secondary} ${DESIGN_CONFIG.layout.spacing.cardPadding} whitespace-pre-line`}>
-          {descriptionText}
-          {descriptionText.length > 0 && descriptionText.length < "접시에 담기는 건 단순한 음식이 아니라,\n장인의 철학과 식탁 위의 품격입니다.".length && (
-            <span className={`inline-block w-0.5 h-4 sm:h-5 md:h-6 lg:h-7 xl:h-8 ${DESIGN_CONFIG.colors.text.secondary} animate-pulse ml-1`}>|</span>
-          )}
+        <p className={`${DESIGN_CONFIG.textSizes.section.description} ${DESIGN_CONFIG.fonts.section.description} leading-relaxed max-w-3xl mx-auto ${DESIGN_CONFIG.colors.text.secondary} ${DESIGN_CONFIG.layout.spacing.cardPadding}`}>
+          접시에 담기는 건 단순한 음식이 아니라,<br />
+          장인의 철학과 식탁 위의 품격입니다.
         </p>
       </div>
     </div>
@@ -344,31 +303,37 @@ export function PopularMenu() {
   const MenuCard = ({ menu, index }: { menu: typeof MENU_DATA.popularMenus[0], index: number }) => {
     const isExpanded = expandedCard === menu.id
     const isEvenIndex = index % 2 === 0
-    
-    // 카드 내부 클래스
-    const getCardClasses = () => {
-      let baseClasses = `relative ${DESIGN_CONFIG.card.animations.transition} cursor-pointer overflow-hidden ${DESIGN_CONFIG.card.styling.borderRadius} group w-full max-w-6xl`
-      
-      // 크기 및 상태 클래스
-      if (isExpanded) {
-        baseClasses += ` ${DESIGN_CONFIG.card.sizes.expanded} ${DESIGN_CONFIG.card.scaling.expanded} ${DESIGN_CONFIG.card.styling.zIndex.expanded}`
-      } else {
-        baseClasses += ` ${DESIGN_CONFIG.card.sizes.collapsed} ${DESIGN_CONFIG.card.sizes.hoverExpanded} ${DESIGN_CONFIG.card.scaling.hover} ${DESIGN_CONFIG.card.styling.zIndex.hover}`
-      }
-      
-      return baseClasses
+    const isVisible = visibleCards.includes(index)
+    const isAnimated = animatedCards.includes(index) // 애니메이션 완료 여부
+
+    if (!isVisible) {
+      // 아예 렌더 안 하거나, 완전 숨김
+      return <div style={{opacity:0, height:'0px', pointerEvents:'none'}}></div>
+      // 또는 return null;
     }
-    
-    // 원래 카드 디자인 복원
+
+    // 애니메이션 완료 후에는 애니메이션 클래스 제거
     return (
       <div className={`flex w-full ${isEvenIndex ? 'justify-start' : 'justify-end'}`}>
         <div className="w-full max-w-6xl">
           <div 
-            className={getCardClasses()}
+            className={`
+              relative cursor-pointer overflow-hidden group w-full max-w-6xl
+              ${DESIGN_CONFIG.card.styling.borderRadius}
+              ${DESIGN_CONFIG.card.animations.transition}
+              ${!isAnimated 
+                ? `${isEvenIndex ? 'animate-slide-in-left' : 'animate-slide-in-right'} animation-delay-${index * 100 + 100}`
+                : ''
+              }
+              ${isExpanded 
+                ? `${DESIGN_CONFIG.card.sizes.expanded} ${DESIGN_CONFIG.card.scaling.expanded} ${DESIGN_CONFIG.card.styling.zIndex.expanded}`
+                : `${DESIGN_CONFIG.card.sizes.collapsed} ${DESIGN_CONFIG.card.sizes.hoverExpanded} ${DESIGN_CONFIG.card.scaling.hover} ${DESIGN_CONFIG.card.styling.zIndex.hover}`
+              }
+            `}
             onClick={() => handleCardClick(menu.id)}
           >
             {/* 배경 그라데이션 (이미지가 없을 때의 플레이스홀더) */}
-            <div className={`absolute inset-0 bg-linear-to-r ${menu.bgColor}`}>
+            <div className={`absolute inset-0 bg-gradient-to-r ${menu.bgColor}`}>
               <div className="absolute inset-0 flex items-center justify-center opacity-10">
                 <Heart className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-16 lg:w-16 text-white" />
               </div>
@@ -424,11 +389,7 @@ export function PopularMenu() {
   // 🎯 메인 렌더링
   // ============================================================================
   return (
-    <>
-      {/* 커스텀 CSS 스타일 */}
-      <style jsx global>{customStyles}</style>
-      
-      <section 
+    <section 
         className={`${DESIGN_CONFIG.layout.sectionHeight} relative ${DESIGN_CONFIG.layout.padding}`}
         style={{
           backgroundImage: `url('${DESIGN_CONFIG.backgroundImages.section}')`,
@@ -455,7 +416,12 @@ export function PopularMenu() {
             </div>
           </div>
         </div>
+
+        {/* Tailwind Purge 방지 - 커스텀 애니메이션 클래스 강제 포함 */}
+        <div className="hidden">
+          <div className="animate-slide-in-left animate-slide-in-right animate-fade-in-up animate-scale-in"></div>
+          <div className="animation-delay-100 animation-delay-200 animation-delay-300 animation-delay-400 animation-delay-500 animation-delay-600"></div>
+        </div>
       </section>
-    </>
-  )
+    )
 } 

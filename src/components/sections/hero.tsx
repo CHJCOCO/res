@@ -101,7 +101,7 @@ const CONTENT_CONFIG = {
   
   // 미디어 파일 경로
   media: {
-    heroVideo: '/videos/st2.mp4', // Hero 비디오 경로
+    heroVideo: '/videos/st3.mp4', // Hero 비디오 경로
     circleImage: '/images/st11.png' // 원형 이미지 경로
   },
   
