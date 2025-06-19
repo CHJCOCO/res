@@ -29,10 +29,10 @@ const DESIGN_CONFIG = {
   // 폰트 설정 (커스텀 폰트 사용)
   fonts: {
     hero: {
-      title: 'font-nanum-round',      // 나눔스퀘어라운드 - 둥근 귀여운 폰트
-      subtitle: 'font-nanum-round',   // 마루부리 - 감성적인 폰트
-      description: 'font-nanum-round', // Pretendard - 깔끔한 읽기용
-      stats: 'font-pretendard-semibold' // Pretendard 세미볼드
+      title: 'font-jalnan',      // 나눔스퀘어라운드 - 둥근 귀여운 폰트
+      subtitle: 'font-pretendard',   // 마루부리 - 감성적인 폰트
+      description: 'font-pretendard', // Pretendard - 깔끔한 읽기용
+      stats: 'font-jalnan' // Pretendard 세미볼드
     },
     filter: {
       button: 'font-pretendard-semibold', // Pretendard 세미볼드
@@ -374,12 +374,16 @@ export default function StakeReviewPage() {
         </div>
 
         {/* 스크롤 인디케이터 - 마지막에 페이드인 */}
-        <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce opacity-0 ${
+        <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 ${
           titleLine2.isComplete ? 'animate-fade-in-smooth animation-delay-2000' : ''
         }`}>
-          <svg className={`w-6 h-6 text-${DESIGN_CONFIG.colors.primary}-300`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+          {/* 스크롤 텍스트가 있는 아이콘 */}
+          <div className={`flex flex-col items-center space-y-2 text-${DESIGN_CONFIG.colors.primary}-300`}>
+            <div className="w-6 h-10 border-2 border-current rounded-full relative">
+              <div className="w-1 h-2 bg-current rounded-full absolute top-2 left-1/2 transform -translate-x-1/2 animate-bounce"></div>
+            </div>
+            <span className="text-xs font-medium tracking-widest">SCROLL</span>
+          </div>
         </div>
       </section>
     );

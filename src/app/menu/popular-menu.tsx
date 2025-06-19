@@ -99,28 +99,7 @@ const DESIGN_CONFIG = {
   }
 }
 
-// ============================================================================
-// 📋 페이지 콘텐츠 설정
-// ============================================================================
-const PAGE_CONTENT = {
-  section: {
-    titleText: "한 점의 고기, 그 너머의 시간", // 타이핑 애니메이션용 순수 텍스트
-    title: (
-      <>
-        <span className={DESIGN_CONFIG.colors.text.accent}>한 점의 고기,</span> <br />
-        <span className={DESIGN_CONFIG.colors.text.gradient}>
-          그 너머의 시간
-        </span>
-      </>
-    ),
-    description: (
-      <>
-        접시에 담기는 건 단순한 음식이 아니라,<br />
-        장인의 철학과 식탁 위의 품격입니다.
-      </>
-    )
-  }
-}
+
 
 // ============================================================================
 // 🍖 메뉴 데이터 설정
@@ -186,10 +165,11 @@ export function PopularMenu() {
   // ============================================================================
   const [expandedCard, setExpandedCard] = useState<number | null>(null)
   
-  // 타이핑 애니메이션 상태
-  const [displayedText, setDisplayedText] = useState('')
-  const [isTypingComplete, setIsTypingComplete] = useState(false)
+  // 페이드인 애니메이션 상태
+  const [showTitle, setShowTitle] = useState(false)
+  const [titleAnimated, setTitleAnimated] = useState(false)
   const [showDescription, setShowDescription] = useState(false)
+  const [descriptionAnimated, setDescriptionAnimated] = useState(false)
   
   // 카드 애니메이션 상태
   const [visibleCards, setVisibleCards] = useState<number[]>([])
@@ -199,31 +179,29 @@ export function PopularMenu() {
   // 🎬 애니메이션 효과
   // ============================================================================
   useEffect(() => {
-    // 타이핑 애니메이션 시작
-    const fullText = PAGE_CONTENT.section.titleText
-    let currentIndex = 0
+    // 페이드인 애니메이션 시작
+    // 1. 제목 페이드인
+    setTimeout(() => {
+      setShowTitle(true)
+      // 제목 애니메이션 완료 후 애니메이션 클래스 제거
+      setTimeout(() => {
+        setTitleAnimated(true)
+      }, 500) // 애니메이션 지속시간
+    }, 300)
     
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayedText(fullText.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(typingInterval)
-        setIsTypingComplete(true)
-        
-        // 타이핑 완료 후 설명 페이드인
-        setTimeout(() => {
-          setShowDescription(true)
-          
-          // 설명 페이드인(transition 1초) 후 카드 등장
-          setTimeout(() => {
-            startCardAnimations()
-          }, 1000) // 설명 애니메이션이 1초니까 1000ms로!
-        }, 600)
-      }
-    }, 100) // 타이핑 속도
-
-    return () => clearInterval(typingInterval)
+    // 2. 설명 페이드인 (제목 애니메이션 후)
+    setTimeout(() => {
+      setShowDescription(true)
+      // 설명 애니메이션 완료 후 애니메이션 클래스 제거
+      setTimeout(() => {
+        setDescriptionAnimated(true)
+      }, 500) // 애니메이션 지속시간
+    }, 800)
+    
+    // 3. 카드 등장 (설명 애니메이션 후)
+    setTimeout(() => {
+      startCardAnimations()
+    }, 1800)
   }, [])
 
   // 카드 즉시 등장 - 애니메이션은 CSS 애니메이션 클래스가 처리
@@ -248,47 +226,41 @@ export function PopularMenu() {
   // 🎨 UI 컴포넌트들
   // ============================================================================
 
-  // 타이핑 제목 컴포넌트
-  const TypingTitle = () => {
-    const firstPart = "한 점의 고기,"
-    const breakPoint = firstPart.length
-    
+  // 페이드인 제목 컴포넌트
+  const FadeInTitle = () => {
     return (
-      <h2 className={`${DESIGN_CONFIG.textSizes.section.title} ${DESIGN_CONFIG.fonts.section.title} tracking-tight ${DESIGN_CONFIG.layout.spacing.headerTitle}`}>
-        {displayedText.length > 0 && (
-          <>
-            <span className={DESIGN_CONFIG.colors.text.accent}>
-              {displayedText.slice(0, Math.min(displayedText.length, breakPoint))}
-            </span>
-            {displayedText.length > breakPoint && (
-              <>
-                {" "}<br />
-                <span className={DESIGN_CONFIG.colors.text.gradient}>
-                  {displayedText.slice(breakPoint).trim()}
-                </span>
-              </>
-            )}
-          </>
-        )}
-        {/* 타이핑 커서 효과 */}
-        {!isTypingComplete && (
-          <span className={`inline-block w-1 h-6 sm:h-8 md:h-10 lg:h-12 xl:h-14 2xl:h-16 ${DESIGN_CONFIG.colors.text.accent} animate-pulse ml-1`}>|</span>
-        )}
-      </h2>
+      <div 
+        className={`${
+          titleAnimated 
+            ? 'opacity-100' // 애니메이션 완료 후 최종 상태
+            : showTitle 
+              ? 'animate-fade-in-up' 
+              : 'opacity-0'
+        }`}
+      >
+        <h2 className={`${DESIGN_CONFIG.textSizes.section.title} ${DESIGN_CONFIG.fonts.section.title} tracking-tight ${DESIGN_CONFIG.layout.spacing.headerTitle}`}>
+          <span className={DESIGN_CONFIG.colors.text.accent}>한 점의 고기,</span> <br />
+          <span className={DESIGN_CONFIG.colors.text.gradient}>
+            그 너머의 시간
+          </span>
+        </h2>
+      </div>
     )
   }
 
   // 섹션 헤더 컴포넌트
   const SectionHeader = () => (
     <div className={`text-center ${DESIGN_CONFIG.layout.spacing.header}`}>
-      <TypingTitle />
+      <FadeInTitle />
       
       {/* 설명 텍스트 - 커스텀 페이드인 애니메이션 */}
       <div 
         className={`${DESIGN_CONFIG.layout.spacing.headerTitle} ${
-          showDescription 
-            ? 'animate-fade-in-up' 
-            : 'opacity-0'
+          descriptionAnimated 
+            ? 'opacity-100' // 애니메이션 완료 후 최종 상태
+            : showDescription 
+              ? 'animate-fade-in-up' 
+              : 'opacity-0'
         }`}
       >
         <p className={`${DESIGN_CONFIG.textSizes.section.description} ${DESIGN_CONFIG.fonts.section.description} leading-relaxed max-w-3xl mx-auto ${DESIGN_CONFIG.colors.text.secondary} ${DESIGN_CONFIG.layout.spacing.cardPadding}`}>
