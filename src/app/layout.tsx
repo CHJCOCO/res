@@ -88,13 +88,13 @@ const dancingscriptregular = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "맛있는 음식점 - 신선한 재료로 만드는 정성 가득한 한식",
-  description: "매일 새벽 직접 선별한 신선한 재료로 만드는 집밥 같은 정성. 온라인 예약, 단골 혜택까지 누리세요.",
-  keywords: "한식, 음식점, 예약, 맛집, 김치찌개, 불고기, 된장찌개",
-  openGraph: {
-    title: "맛있는 음식점",
-    description: "신선한 재료로 만드는 정성 가득한 한식",
-    type: "website",
+  title: "BISTRO - 장인의 손길로 완성한 프리미엄 스테이크",
+description: "정교한 숙성과 그릴링 기술로 완성된 깊은 풍미의 스테이크. 온라인 예약과 단골 고객 전용 혜택을 지금 만나보세요.",
+keywords: "BISTRO, 스테이크, 프리미엄 레스토랑, 미디엄레어, 티본스테이크, 한우, 예약, 스테이크 맛집",
+openGraph: {
+  title: "BISTRO",
+  description: "장인의 손길로 완성한 프리미엄 스테이크 하우스",
+  type: "website",
   },
 };
 
